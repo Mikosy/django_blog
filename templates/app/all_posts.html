@@ -1,0 +1,64 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+<main class="container">
+
+    <form action="{% url 'app:view_all_posts' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button type="submit">Upload Post</button>
+    </form>
+
+    <section class="main-text">
+      <p>All Posts</p>
+      <!-- First column -->
+      <div class="posts" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); ">
+        {% for post in posts %}
+        <div class="first-post">
+          <div class="first-post-image"
+          style="background-image:url('{{post.cover_photo.url}}')"
+          ></div>
+          <div class="badge">
+            <button>{{post.slug}}</button>
+          </div>
+          <div class="first-post-title">
+            <a href="{{ post.get_absolute_url }}">
+              <h2>{{ post.title|truncatewords:5  }}</h2>
+            </a>
+          </div>
+          <div class="first-post-author">
+            <div class="first-post-author-image"
+            style="background-image:url('{{post.authors_photo.url}}')"
+            ></div>
+            <div class="first-post-authors-name">
+              <span> {{ post.publish }}</span> |
+              <span> {{ post.author }}</span>
+            </div>
+            <div class="first-post-date-published">
+            </div>
+          </div>
+          <small>Tags: {{ post.tags.all|join:", " }}</small>
+
+        </div>
+        {% endfor %}
+         
+      </div>
+
+
+    </section>
+  </main>
+
+
+
+{% endblock content %}
+
+
+
+
+
+

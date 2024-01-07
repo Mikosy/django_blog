@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static './assets/style.css' %}" />
+  <title>Blog</title>
+</head>
+
+<body id="change-background">
+  
+    {% include "app/include/navbar.html" %}
+
+    {% block content %}
+
+
+
+    {% endblock content %}
+
+    {% include "app/include/footer.html" %}
+
+
+    
+    
+
+
+
+
+
+
+    <script src="{% static './assets/js/script.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+{% extends "app/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<main class="container">
+    <div class="detail-main">
+        <div class="badge">
+            <button>{{ posts.slug }}</button>
+        </div>
+        <div class="detail-title">
+            <h1>{{ posts.title }}</h1>
+        </div>
+        <div class="detail-author">
+            <div class="detail-author-image"
+          style="background-image:url('{{posts.authors_photo.url}}')"
+            
+            ></div>
+            <div class="detail-author-name">
+                <p>{{ posts.publish }} by {{ posts.author }}</p>
+            </div> 
+            <div class="detail-date-posted">
+                {% comment %} <p>{{post.status}}</p> {% endcomment %}
+                <p>This post is approximately {{ reading_time }} minute(s) read.</p>
+                
+            </div>
+        </div>
+    </div>
+
+    <section class="for-image">
+        <div class="detail-image"
+        style="background-image:url('{{posts.cover_photo.url}}')"
+        ></div>
+
+        <article>
+            <div class="first-paragraph">
+                <p>{{ posts.body|linebreaks }}</p>
+
+                <p></p>
+
+                <h3></h3>
+
+                <p></p>
+
+                <p></p>
+            </div>
+
+            <blockquote>
+                {{posts.blockquote}}
+            </blockquote>
+
+            <div class="second-paragraph">
+                <p></p>
+
+                <p></p>
+
+                <h3></h3>
+
+                <p></p>
+
+                <p></p>
+            </div>
+
+        </article>
+    </section>
+
+
+    <section class="main-text">
+        <h2>Similar Posts</h2>
+        <!-- First column -->
+        <div class="posts" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); ">
+            {% for post in similar_posts %}
+          <div class="first-post">
+            <div class="first-post-image"
+            style="background-image:url('{{post.cover_photo.url}}')"
+            ></div>
+            <div class="badge">
+              <button>{{post.slug}}</button>
+            </div>
+            <div class="first-post-title">
+              <a href="{{ post.get_absolute_url }}">
+                <h2>{{ post.title|truncatewords:5  }}</h2>
+              </a>
+            </div>
+            <div class="first-post-author">
+              <div class="first-post-author-image"
+              style="background-image:url('{{post.authors_photo.url}}')"
+              ></div>
+              <div class="first-post-authors-name">
+                <span> {{ post.publish }}</span> |
+                <span> {{ post.author }}</span>
+              </div>
+              <div class="first-post-date-published">
+              </div>
+            </div>
+            <small>Tags: {{ post.tags.all|join:", " }}</small>
+  
+          </div>
+          {% empty %}
+          There are no similar posts yet.
+          {% endfor %}
+           
+        </div>
+  
+  
+      </section>
+    
+</main>
+
+{% endblock content %}
+
+

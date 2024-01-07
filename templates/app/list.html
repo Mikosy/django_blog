@@ -1,0 +1,141 @@
+{% load static %}
+
+
+
+<h1>Hola</h1>
+<div>
+{% for post in posts %}
+    <h2>
+    <a href="{{ post.get_absolute_url }}">
+    {{ post.title }}
+    </a>
+    </h2>
+    <p class="date">
+    Published {{ post.publish }} by {{ post.author }}
+    </p>
+    {{ post.body|truncatewords:30|linebreaks }}
+{% endfor %}
+</div>
+
+
+
+ <!-- Second column -->
+ <div class="posts">
+    <div class="first-post">
+      <div class="first-post-image-one"></div>
+      <div class="badge">
+        <button>Technology</button>
+      </div>
+      <div class="first-post-title">
+        <a href="#">
+          <h2>Innovations and Ideas from the GenZ</h2>
+        </a>
+      </div>
+      <div class="first-post-author">
+        <div class="first-post-author-image"></div>
+        <div class="first-post-authors-name">
+          <span> Jason Francisco</span> |
+          <span> July 20, 2022.</span>
+        </div>
+        <div class="first-post-date-published"></div>
+      </div>
+    </div>
+    <div class="second-post">
+      <div class="second-post-image-one"></div>
+      <div class="badge">
+        <button>Things</button>
+      </div>
+      <div class="second-post-title">
+        <a href="#">
+          <h2>Exploring Nature at its Peak</h2>
+        </a>
+      </div>
+      <div class="second-post-author">
+        <div class="second-post-author-image"></div>
+        <div class="second-post-authors-name">
+          <span> Jason Francisco</span> |
+          <span> August 20, 2022.</span>
+        </div>
+        <div class="second-post-date-published"></div>
+      </div>
+    </div>
+    <div class="third-post">
+      <div class="third-post-image-one"></div>
+      <div class="badge">
+        <button>Nature</button>
+      </div>
+      <div class="third-post-title">
+        <a href="#">
+          <h2>Exploring Nature at its Peak</h2>
+        </a>
+      </div>
+      <div class="third-post-author">
+        <div class="third-post-author-image"></div>
+        <div class="third-post-authors-name">
+          <span> Jason Francisco</span> |
+          <span> August 20, 2022.</span>
+        </div>
+        <div class="third-post-date-published"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Third column -->
+  <div class="posts">
+    <div class="first-post">
+      <div class="first-post-image-two"></div>
+      <div class="badge">
+        <button>Nature</button>
+      </div>
+      <div class="first-post-title">
+        <a href="#">
+          <h2>Exploring Nature at its Peak</h2>
+        </a>
+      </div>
+      <div class="first-post-author">
+        <div class="first-post-author-image"></div>
+        <div class="first-post-authors-name">
+          <span> Jason Francisco</span> |
+          <span> August 20, 2022.</span>
+        </div>
+        <div class="first-post-date-published"></div>
+      </div>
+    </div>
+    <div class="second-post">
+      <div class="second-post-image-two"></div>
+      <div class="badge">
+        <button>Nature</button>
+      </div>
+      <div class="second-post-title">
+        <a href="#">
+          <h2>Exploring Nature at its Peak</h2>
+        </a>
+      </div>
+      <div class="second-post-author">
+        <div class="second-post-author-image"></div>
+        <div class="second-post-authors-name">
+          <span> Jason Francisco</span> |
+          <span> August 20, 2022.</span>
+        </div>
+        <div class="second-post-date-published"></div>
+      </div>
+    </div>
+    <div class="third-post">
+      <div class="third-post-image-two"></div>
+      <div class="badge">
+        <button>Nature</button>
+      </div>
+      <div class="third-post-title">
+        <a href="#">
+          <h2>Exploring Nature at its Peak</h2>
+        </a>
+      </div>
+      <div class="third-post-author">
+        <div class="third-post-author-image"></div>
+        <div class="third-post-authors-name">
+          <span> Jason Francisco</span> |
+          <span> August 20, 2022.</span>
+        </div>
+        <div class="third-post-date-published"></div>
+      </div>
+    </div>
+  </div>

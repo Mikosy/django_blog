@@ -1,0 +1,976 @@
+* {
+    font-family: poppins;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: .3s ease;
+    color: #222;
+}
+
+a:hover {
+    color: rgb(255, 72, 40);
+}
+
+button {
+    cursor: pointer;
+}
+
+.container {
+    padding-left: 14rem;
+    padding-right: 14rem;
+}
+
+::placeholder {
+    font-size: 0.7rem;
+    color: #cfcfcf;
+    font-style: italic;
+    padding-inline-start: 5px;
+}
+
+.parent-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 16px 0;
+}
+.logo span {
+    color: rgb(255, 72, 40);
+}
+
+.links ul {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-and-change-of-icon {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search form {
+    display: flex;
+    align-items: center;
+    background-color: rgb(238, 238, 238);
+    padding: 7px;
+    border-radius: 4px;
+}
+
+.search form input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.search form svg,
+.change-of-icon svg {
+    color: rgb(255, 72, 40);
+    cursor: pointer;
+}
+
+.hamburger {
+    display: none;
+}
+
+main {
+    position: relative;
+}
+
+main .banner {
+    margin-bottom: 10%;
+}
+
+main .banner .banner-image {
+    width: 100%;
+    border-radius: 15px;
+    min-height: 70vh;
+    max-height: 70vh;
+    object-fit: cover;
+    /* background-color: rgb(255, 72, 40); */
+    /* background-image: url(./Images/pexels-tetyana-kovyrina-937980.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.banner .jumbotron {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px 29px;
+    width: 500px;
+    height: 250px;
+    box-shadow: 0.2px 1px 2px #c5c5c5;
+    position: absolute;
+    left: 20%;
+    top: 300px;
+    transition: 1s;
+}
+
+main .jumbotron .badge button {
+    outline: none;
+    border: 1px solid rgb(175, 175, 175);
+    padding: 5px;
+    border-radius: 7px;
+    color: #fff;
+    background-color: rgb(255, 72, 40);
+    margin: 5px 0;
+    font-size: 12px;
+
+}
+
+main .jumbotron .banner-title h1 {
+    margin: 8px 0 3px 0;
+    font-size: 30px;
+    font-family: lato;
+    line-height: 34px;
+    transition: 1s ease-in-out;
+}
+
+main .banner-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 19px 0;
+}
+
+main .banner .author-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    /* background: url(./Images/profile-picture.jpg) no-repeat center center; */
+    background-size: cover;
+}
+
+main .authors-name p,
+.date-published p {
+    font-weight: light;
+    font-size: .8rem;
+    color: rgb(119, 119, 119);
+}
+
+main .main-text {
+    margin-top: 50px;
+}
+
+main .main-text p {
+    font-weight: bold;
+    margin-bottom: 14px;
+}
+
+.posts {
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); */
+    display: flex;
+    gap: 20px;
+    margin: 1em 0;
+}
+
+.first-post {
+    height: 350px;
+    /* background-color: #222; */
+    width: 350px;
+    box-shadow: 0.2px 1px 2px #c5c5c5;
+    border-radius: 10px;
+    padding: 12px;
+    transition: 1s;
+    opacity: 0;
+    /* Initially set opacity to 0 */
+    animation: fadeInRight 0.85s ease-in-out forwards;
+}
+
+/* Define the fadeInUp animation */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-400px);
+        /* Move the cards up */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        /* Reset the position */
+    }
+}
+
+.first-post-image {
+    height: 170px;
+    border-radius: 10px;
+    /* background-image: url(./Images/10.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.first-post .badge button {
+    outline: none;
+    border: none;
+    padding: 3px;
+    border-radius: 3px;
+    color: #fff;
+    /* background-color: rgb(255, 72, 40); */
+    background: linear-gradient(to left, #ff8787, rgb(255, 72, 40));
+    margin: 7px 0;
+    font-size: 12px;
+}
+
+.first-post-title h2 {
+    font-family: lato;
+}
+
+.first-post-author {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.first-post-author-image {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    /* background: url(./Images/profile-picture.jpg) no-repeat center center; */
+    background-size: cover;
+}
+
+.first-post-author .first-post-authors-name span {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.first-post-author {
+    margin: 14px 0;
+}
+
+.second-post {
+    height: 350px;
+    /* background-color: #222; */
+    width: 100%;
+    box-shadow: 0.2px 1px 2px #c5c5c5;
+    border-radius: 10px;
+    padding: 12px;
+    transition: 1s;
+    opacity: 0;
+    /* Initially set opacity to 0 */
+    animation: fadeInDown 2s ease-in-out forwards;
+}
+
+/* Define the fadeInUp animation */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-200px);
+        /* Move the cards up */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        /* Reset the position */
+    }
+}
+
+.second-post-image {
+    height: 170px;
+    border-radius: 10px;
+    /* background-image: url(./Images/4.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.second-post .badge button {
+    outline: none;
+    border: none;
+    padding: 3px;
+    border-radius: 3px;
+    color: #fff;
+    /* background-color: rgb(255, 72, 40); */
+    background: linear-gradient(to left, #ff8787, rgb(255, 72, 40));
+    margin: 7px 0;
+    font-size: 12px;
+}
+
+.second-post-title h2 {
+    font-family: lato;
+}
+
+.second-post-author {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.second-post-author-image {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    /* background: url(./Images/3d-avatar-male_lg.webp) no-repeat center center; */
+    background-size: cover;
+}
+
+.second-post-author .second-post-authors-name span {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.second-post-author {
+    margin: 14px 0;
+}
+
+/* Third post */
+.third-post {
+    height: 350px;
+    /* background-color: #222; */
+    width: 100%;
+    box-shadow: 0.2px 1px 2px #c5c5c5;
+    border-radius: 10px;
+    padding: 12px;
+    opacity: 0;
+    /* Initially set opacity to 0 */
+    animation: fadeInSide 0.9s ease-in-out forwards;
+}
+
+@keyframes fadeInSide {
+    from {
+        opacity: 0;
+        transform: translateX(400px);
+        /* Move the cards up */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        /* Reset the position */
+    }
+}
+
+.third-post-image {
+    height: 170px;
+    border-radius: 10px;
+    /* background-image: url(./Images/6.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.third-post .badge button {
+    outline: none;
+    border: none;
+    padding: 3px;
+    border-radius: 3px;
+    color: #fff;
+    /* background-color: rgb(255, 72, 40); */
+    background: linear-gradient(to left, #ff8787, rgb(255, 72, 40));
+    margin: 7px 0;
+    font-size: 12px;
+}
+
+.third-post-title h2 {
+    font-family: lato;
+}
+
+.third-post-author {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.third-post-author-image {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    /* background: url(./Images/profile-picture.jpg) no-repeat center center; */
+    background-size: cover;
+}
+
+.third-post-author .third-post-authors-name span {
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.third-post-author {
+    margin: 14px 0;
+}
+
+/* Other posts images */
+.first-post-image-one {
+    height: 170px;
+    border-radius: 10px;
+    /* background-image: url(./Images/8.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.second-post-image-one {
+    height: 170px;
+    border-radius: 10px;
+    /* background-image: url(./Images/pexels-bayu-jefri-1387037.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.third-post-image-one {
+    height: 170px;
+    border-radius: 10px;
+    /* background-image: url(./Images/pexels-jess-loiterton-4609300.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.first-post-image-two {
+    height: 170px;
+    border-radius: 10px;
+    /* background-image: url(./Images/pexels-sebastian-voortman-214574.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.second-post-image-two {
+    height: 170px;
+    border-radius: 10px;
+    /* background-image: url(./Images/pexels-tetyana-kovyrina-937980.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.third-post-image-two {
+    height: 170px;
+    border-radius: 10px;
+    /* background-image: url(./Images/4.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Other post end */
+
+.view-all-post-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.view-all-post-button button {
+    border: 1px solid rgb(175, 175, 175);
+    outline-color: rgb(255, 72, 40);
+    padding: 10px 20px;
+    border-radius: 5px;
+    background: transparent;
+}
+
+footer {
+    box-shadow: 0.2px 1px 2px #c5c5c5;
+    padding: 13px 0;
+    height: 110px;
+    width: 100%;
+    margin-top: 3em;
+}
+
+footer .logo-and-allrights {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer .terms-privacy-and-cookie ul {
+    display: flex;
+    gap: 14px;
+}
+
+footer .terms-privacy-and-cookie ul li a {
+    font-size: 0.75rem;
+}
+
+/* Detail Page Design */
+main .detail-main {
+    margin: 3em 0 1.5em 0;
+}
+
+main .detail-main .badge button {
+    outline: none;
+    border: 1px solid rgb(175, 175, 175);
+    padding: 5px;
+    border-radius: 7px;
+    margin: 5px 0;
+    font-size: .725rem;
+    background-color: rgb(255, 72, 40);
+    color: #fff;
+}
+
+.detail-title h1 {
+    width: 800px;
+    font-family: lato;
+    margin: .65em 0;
+}
+
+.detail-author {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: .65em 0;
+}
+
+.detail-author .detail-author-image {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    /* background: url(./Images/profile-picture.jpg) no-repeat center center; */
+    background-size: cover;
+}
+
+.for-image .detail-image {
+    min-height: 500px;
+    width: auto;
+    background-color: #222;
+    border-radius: 15px;
+    margin: .65em 0 2em 0;
+    /* background-image: url(./Images/pexels-tetyana-kovyrina-937980.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+.for-image .first-paragraph p,
+.second-paragraph p {
+    font-family: lato;
+    font-size: 1.2rem;
+    padding: 10px 0;
+}
+
+.for-image .first-paragraph h3,
+.second-paragraph h3 {
+    font-size: 2rem;
+    padding: .45em 0;
+}
+
+.for-image blockquote {
+    background-color: #222;
+    padding: 1.5em;
+    margin: 1.3em 0;
+    border: 1px solid #c5c5c5;
+    border-left: 4px solid #ff4828;
+    border-radius: 10px;
+    color: #fff;
+    font-style: italic;
+}
+
+.comment-section {
+    margin: 2em 0;
+}
+
+.comment-section .comment-form h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #000;
+    padding-bottom: .5em;
+}
+
+.comment-form form textarea {
+    border-radius: 10px;
+    resize: none;
+    transition: .6s ease-in;
+    outline-color: hsl(9, 100%, 64%);
+    padding: .75rem;
+    background-color: transparent;
+    color: #ff4828;
+    border: 1px solid #c5c5c5;
+    margin-bottom: .5em;
+
+}
+
+.comment-form form input {
+    padding: .8em;
+    border-radius: 10px;
+    outline-color: hsl(9, 100%, 64%);
+    border: 1px solid #c5c5c5;
+    background-color: transparent;
+    font-weight: 400;
+    cursor: pointer;
+    background-color: transparent;
+    color: #ff4828;
+    width: 100%;
+    margin: .8em 0;
+}
+
+.comment-form form button {
+    padding: .7em;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #c5c5c5;
+    /* background-color: rgb(255, 72, 40); */
+    background-color: transparent;
+    color: #ff4828;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.5s ease-in-out;
+    animation: pulse 2s infinite;
+    margin-inline-start: .6em;
+}
+
+.comment-form form button:hover {
+    background-color: rgb(255, 72, 40);
+    color: #fff;
+
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.parent-comment-div {
+    display: flex;
+    gap: 2rem;
+}
+
+.comments-jumbotron {
+    height: 300px;
+    background-color: #181a2a;
+    width: 550px;
+    box-shadow: 1px 1px 2px #c5c5c5;
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+.comments .comments-jumbotron h3 {
+    font-size: .9rem;
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: #FF4828;
+    color: #fff;
+    text-decoration-thickness: 3px;
+}
+
+.comment-section .commentor-and-comment {
+    height: 170px;
+    width: 100%;
+    overflow-y: scroll;
+    box-shadow: 0.2px 1px 2px #c5c5c5;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-left: 4px solid #ff4828;
+    border-radius: 12px;
+    margin-top: 0.5em;
+    padding: .5em;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+    background-color: #ff4828;
+    overflow-y: hidden;
+
+}
+
+/* Styles for the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+    height: 2px;
+    background-color: transparent;
+    /* Thumb color */
+    border-radius: 5px;
+    /* Round the corners of the thumb */
+    overflow-y: hidden;
+
+}
+
+/* Styles for the scrollbar track */
+::-webkit-scrollbar-track {
+    height: 2px;
+    background-color: #fff;
+    /* Track color */
+    border-radius: 6px;
+    /*Round the corners of the track */
+    overflow-y: hidden;
+
+}
+
+.commentor-and-comment span {
+    font-size: .65rem;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.comments-word p {
+    font-size: .76rem;
+    color: #fff;
+    margin-top: 0.85em;
+}
+
+/* Pagination */
+
+.pagination {
+    padding: 1rem 0 0 0;
+    display: flex;
+    justify-content: end;
+}
+
+.pagination button {
+    margin: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border: none;
+    cursor: pointer;
+    outline: 2px solid #FF4828;
+    outline-color: #fff;
+    border-radius: 40%;
+}
+
+.pagination button.active {
+    color: #fff;
+    background-color: #ff4828;
+    height: 33px;
+    width: 33px;
+    display: flex;
+    justify-content: center;
+    transition: background-color 0.5s ease-in-out;
+    animation: active 2s infinite;
+    align-items: center;
+}
+
+@keyframes active {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 990px) {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .parent-div {
+        display: flex;
+        align-items: baseline;
+        width: 100%;
+    }
+
+    .links {
+        display: none;
+    }
+
+    .search {
+        display: none;
+    }
+
+    /* Hamburger */
+    .hamburger {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        width: 30px;
+        border-radius: 15px;
+        border: 2px solid #FF4828;
+        cursor: pointer;
+        transition: 1s;
+    }
+
+    .hamburger:hover {
+        background: #ff4828;
+        color: #fff;
+    }
+
+    .hamburger svg {
+        padding: 3px;
+        color: #ff4828;
+        font-weight: bolder;
+        transition: color 1s;
+    }
+
+    @keyframes rotateAnimation {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes rotateBackward {
+        from {
+            transform: rotate(360deg);
+        }
+
+        to {
+            transform: rotate(0deg);
+        }
+    }
+
+    .hamburger svg:hover {
+        color: #fff;
+        animation: rotateAnimation 0.5s linear forwards;
+    }
+
+    .hamburger svg:not(:hover) {
+        animation: rotateBackward 0.5s linear forwards;
+        /* Apply the backward animation */
+    }
+
+    /* End */
+    main .banner .banner-image {
+        width: 100%;
+        border-radius: 15px;
+        min-height: 40vh;
+    }
+
+    main .banner .jumbotron {
+        background-color: #fff;
+        padding: 10px 14px;
+        width: auto;
+        height: 180px;
+        box-shadow: 0.2px 1px 2px #c5c5c5;
+        position: absolute;
+        left: 19px;
+        top: 40px;
+        margin: 0;
+    }
+
+    main .jumbotron .badge button {
+        padding: .5em;
+        font-size: .7rem;
+    }
+
+    main .jumbotron .banner-title h1 {
+        margin: 4px 0 3px 0;
+        font-size: 1rem;
+        font-family: lato;
+        line-height: normal;
+    }
+
+    main .banner-author {
+        align-items: center;
+        gap: 4px;
+        margin: 0.75rem 0;
+    }
+
+    main .banner .author-image {
+        height: 30px;
+        width: 30px;
+        border-radius: 15px;
+        background-size: cover;
+    }
+
+    /* Detail page */
+    .detail-title h1 {
+        width: 100%;
+    }
+
+    .detail-author {
+        gap: 10px;
+    }
+
+    .detail-author-name p,
+    .detail-date-posted p {
+        font-size: .75rem;
+    }
+
+    .for-image .detail-image {
+        min-height: 300px;
+        width: 100%;
+    }
+
+    footer .logo-and-allrights {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    footer .terms-privacy-and-cookie ul {
+        display: none;
+    }
+
+    .parent-comment-div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .comment-form form textarea {
+        width: 100%;
+
+    }
+
+    .comment-form form input {
+        width: 100%;
+    }
+
+    .comments-jumbotron {
+        height: 300px;
+        background-color: #181a2a;
+        width: 100%;
+        box-shadow: 0.2px 1px 2px #c5c5c5;
+        border-radius: 6px;
+        padding: 1rem;
+    }
+    .first-post {
+        height: 350px;
+        width: 100%;
+    }
+    .posts {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin: 1em 0;
+    }
+}
