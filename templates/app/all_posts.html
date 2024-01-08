@@ -17,7 +17,7 @@
     <section class="main-text">
       <p>All Posts</p>
       <!-- First column -->
-      <div class="posts" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); ">
+      <div class="posts">
         {% for post in posts %}
         <div class="first-post">
           <div class="first-post-image"
@@ -28,7 +28,7 @@
           </div>
           <div class="first-post-title">
             <a href="{{ post.get_absolute_url }}">
-              <h2>{{ post.title|truncatewords:5  }}</h2>
+              <h2>{{ post.title|truncatewords:3  }}</h2>
             </a>
           </div>
           <div class="first-post-author">
@@ -42,7 +42,17 @@
             <div class="first-post-date-published">
             </div>
           </div>
-          <small>Tags: {{ post.tags.all|join:", " }}</small>
+          {% comment %} <small>Tags: {{ post.tags.all|join:", " }}</small> {% endcomment %}
+          <div class="tags">
+            <small>Tags:
+              {% for tag in post.tags.all %}
+              <a href="{% url "app:post_list_by_tag" tag.slug %}">
+                {{tag.name}}
+              </a>
+              {% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </small>
+          </div>
 
         </div>
         {% endfor %}

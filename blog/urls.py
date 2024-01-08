@@ -22,9 +22,20 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# adding sitemap
+from django.contrib.sitemaps.views import sitemap
+from app.sitemaps import PostSitemap
+
+sitemaps = {
+    'posts':PostSitemap,
+}
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('app.urls'))
+    path('', include('app.urls')),
+
+    # Sitempas url
+    path('sitemap.xml', sitemap, {'sitemaps':sitemaps}, name='django.contrib.sitemaps.views.sitemap')
 ]
 
 if settings.DEBUG:

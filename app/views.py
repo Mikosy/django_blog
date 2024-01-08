@@ -6,6 +6,8 @@ from django.views.decorators.http import require_POST
 
 from taggit.models import Tag
 
+from django.db.models import Count
+
 
 from .models import *
 
@@ -94,6 +96,13 @@ def post_detail(request, year, month, day, post):
     comments = Comment.objects.filter(active=True)
 
     form = CommentForm()
+
+    # creating function for getting similar posts using tags
+    post_tags_ids = posts.tags.values_list('id', flat=True)
+    similar_posts = Post.published.filter(tags__in=post_tags_ids)\
+        .exclude(id=posts.id)
+    similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
+        .order_by('-same_tags', '-publish')[:4]
     
 
     data = {
@@ -101,7 +110,7 @@ def post_detail(request, year, month, day, post):
         'form': form,
         'reading_time':reading_time_minutes,
         'comments': comments,
-        # 'similar_posts':similar_posts,
+        'similar_posts':similar_posts,
     }
 
     return render(request, 'app/detail.html', data)
@@ -111,15 +120,16 @@ def post_comment(request, post_id):
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     comment = None
     # A comment was posted
-    form = CommentForm(data=request.POST)
-    if form.is_valid():
-        # Create a Comment object without saving it to the database
-        comment = form.save(commit=False)
-        # Assign the post to the comment
-        comment.post = post
-        # Save the comment to the database
-        comment.save()
-    return render(request, 'blog/post/comment.html', {'post': post,'form': form,'comment': comment})
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST)
+        if form.is_valid():
+            # Create a Comment object without saving it to the database
+            comment = form.save(commit=False)
+            # Assign the post to the comment
+            comment.post = post
+            # Save the comment to the database
+            comment.save()
+    return render(request, 'app/comment-form.html', {'post': post,'form': form,'comment': comment})
 
 # @require_POST
 # def post_comment(request, post_id):

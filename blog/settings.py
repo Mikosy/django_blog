@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# sitemap
+SITE_ID = 1
 
 # Application definition
 
@@ -42,6 +44,9 @@ INSTALLED_APPS = [
     # 'app.apps.AppConfig',
     'app',
     'taggit',
+
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
 ]
 
 MIDDLEWARE = [
