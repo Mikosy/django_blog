@@ -69,14 +69,12 @@ header{
     justify-content: center;
     position: absolute;
     z-index: 1;
-    top: -10px;
+    top: -15px;
     left:0;
     width: 100%;
     transition: 1s ease-in-out;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
-    background: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
-    
-    /* background-color: #000000; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: -webkit-linear-gradient(#151515, rgba(0, 0, 0, 0.9)); 
 }
 
 .search form {
