@@ -1,0 +1,37 @@
+{% extends "app/base.html" %}
+
+{% load blog_tags %}
+{% load static %}
+
+{% block content %}
+
+<!-- delete_confirmation.html -->
+<main class="container">
+
+
+<section class="comment-section">
+    <div class="comment-form">
+
+        <div class="parent-comment-div" style="display:flex; flex-direction:column;">
+            <h2>Delete Confirmation</h2>
+                <p>Are you sure you want to delete "{{ post.title }}"?</p>
+
+                <form action="{% url 'app:delete_post' post_id=post.id %}" method="post" >
+                    {% csrf_token %}
+
+                    <button type="submit">Yes, Delete Post!</button>
+                </form> 
+
+
+                <a href="{% url 'app:home' %}">Cancel</a>
+        </div>
+    </div>
+</section>
+
+
+</main>
+{% endblock content %}
+
+
+
+

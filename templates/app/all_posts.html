@@ -7,13 +7,6 @@
 
 <main class="container">
 
-    <form action="{% url 'app:view_all_posts' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-
-    <button type="submit">Upload Post</button>
-    </form>
-
     <section class="main-text">
       <p>All Posts</p>
       <!-- First column -->
@@ -53,13 +46,16 @@
               {% endfor %}
             </small>
           </div>
-
         </div>
+
+        
         {% endfor %}
          
       </div>
 
+      
 
+      
     </section>
   </main>
 

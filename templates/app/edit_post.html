@@ -1,0 +1,23 @@
+{% extends "app/base.html" %}
+
+{% load blog_tags %}
+{% load static %}
+
+{% block content %}
+
+<!-- edit_post.html -->
+
+<main class="container">
+  <form method="post" action="{{post.get_absolute_url}}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+  
+    <button type="submit">Update Post</button>
+  </form>
+  
+</main>
+
+{% endblock content %}
+
+
+

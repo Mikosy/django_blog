@@ -33,5 +33,69 @@
       }
 
     }
-  }
+  };
+
+  const searchIcon = document.getElementById('search-icon');
+  const closeButton = document.getElementById('close-button');
+  const searchField = document.getElementById('hide-form');
+
+  searchIcon.addEventListener('click', function(){
+    console.log('i am clicked!');
+    setTimeout(function() {
+      searchField.style.display = "block";
+      searchField.style.transition = "1s";
+    }, 300);
+    
+
+  });
+  closeButton.addEventListener('click', function(){
+    console.log('close Menu');
+    searchField.style.display = "none"
+    searchField.style.transition = "1s"
+  });
+
+
+
+// Adding Post 
+  // $(document).ready(function (){
+  //   $("#search-form").submit(function (event){
+  //     event.preventDefault();
+
+  //     var formData = $("#search-form").serialize();
+      
+  //     $.ajax({
+  //       type: "POST",
+  //       url: "{% url 'app:search' %}",
+  //       data: formData,
+  //       success: function(data){
+  //         $("#post-list").append(data.html);
+  //       },
+  //       error: function(xhr, errmsg, err){
+  //         console.log("Error", err);
+  //       },
+  //     });
+  //   });
+  // });
   
+// Search
+
+$(document).ready(function () {
+  $("#search-form").submit(function (event) {
+      event.preventDefault();
+
+      var query = $("#search-query").val();
+
+      $.ajax({
+          type: "POST",
+          url: "{% url 'app:search' %}",  
+          data: { 'query': query },
+          success: function (data) {
+              $("#search-results").html(data.results.join('<br>'));
+          },
+          error: function (xhr, errmsg, err) {
+              console.log("Error:", err);
+          },
+      });
+  });
+});
+

@@ -23,7 +23,9 @@ a:hover {
 button {
     cursor: pointer;
 }
-
+header{
+    position: relative;
+}
 .container {
     padding-left: 14rem;
     padding-right: 14rem;
@@ -57,6 +59,25 @@ button {
     align-items: center;
     gap: 20px;
 }
+.hide-form{
+    display: none;
+}
+#search-field{
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+    position: absolute;
+    z-index: 1;
+    top: -10px;
+    left:0;
+    width: 100%;
+    transition: 1s ease-in-out;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+    background: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+    
+    /* background-color: #000000; */
+}
 
 .search form {
     display: flex;
@@ -70,6 +91,19 @@ button {
     background-color: transparent;
     border: none;
     outline: none;
+}
+.search .close-button{
+    margin-left: 5px;
+}
+.search #close-button{
+    padding: 6px 12px;
+    background: #FF4828;
+    color: #fff;
+    border-color: #fff;
+    outline: none;
+    font-weight: bold;
+    transition: 1s ease-in-out;
+    border-radius: 4px;
 }
 
 .search form svg,
@@ -760,10 +794,44 @@ main .detail-main .badge button {
     }
 }
 
+.newsletter fieldset{
+    border-radius:10px;
+    height:100px;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border: 1px solid #c5c5c5;
+}
+.newsletter legend{
+    text-transform: uppercase;
+    color: #FF4828;
+}
+.newsletter input {
+    padding: .8em;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    outline-color: hsl(9, 100%, 64%);
+    border: 1px solid #c5c5c5;
+    background-color: transparent;
+    font-weight: 400;
+    cursor: pointer;
+    background-color: transparent;
+    color: #ff4828;
+    width: 400px;
+    margin: .8em 0;
+}
+.newsletter button {
+    outline: none;
+    padding: .8em;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #fff ;
+    border: 1px solid rgb(175, 175, 175);
+    background: rgb(255, 72, 40);
+    padding: 10px 20px;
 
-
-
-
+}
 
 
 
@@ -804,6 +872,16 @@ main .detail-main .badge button {
 
 
 @media screen and (max-width: 990px) {
+    #search-form-input{
+        display: block;
+    }
+    
+    .newsletter fieldset{
+        width: 100%;
+    }
+    .newsletter input {
+        width: 100%;
+    }
     
     .container {
         padding-left: 1rem;
@@ -819,7 +897,7 @@ main .detail-main .badge button {
     .links {
         display: none;
     }
-    .search form input {
+    #search-query {
         display: none;
     }
     

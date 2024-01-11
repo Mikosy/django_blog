@@ -29,6 +29,7 @@ def home(request, tag_slug=None):
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         post_list = post_list.filter(tags__in=[tag])
+        pinned_post = pinned_post.filter(tags__in=[tag])
 
     
 
@@ -42,8 +43,33 @@ def home(request, tag_slug=None):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
+    
+    subscribers_email =  Newsletter.objects.all()
 
-    return render(request, 'app/index.html', {'posts': posts, 'latest_post':pinned_post, 'tag':tag})
+    if request.method == 'POST':
+        form = NewsletterForm(request.POST)
+
+        if form.is_valid():
+            check_form = form.save(commit=False)
+            if request.user.is_authenticated: 
+                check_form.user = request.user
+            else:
+                check_form.user = None
+
+            check_form.save()
+            return redirect('/')
+        
+    else:
+        form = NewsletterForm()
+
+    args = {
+        'posts': posts, 
+        'latest_post':pinned_post, 
+        'tag':tag, 
+        'subscribers_email':subscribers_email
+    }
+
+    return render(request, 'app/index.html', args)
 
 
 
@@ -83,7 +109,6 @@ def post_detail(request, year, month, day, post):
     # similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
     #     .order_by('-same_tags','-publish')[:4]
     
-    # Count words in the post content
     words = posts.body.split()
     word_count = len(words)
 
@@ -119,46 +144,13 @@ def post_detail(request, year, month, day, post):
 def post_comment(request, post_id):
     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
     comment = None
-    # A comment was posted
     if request.method == 'POST':
         form = CommentForm(data=request.POST)
         if form.is_valid():
-            # Create a Comment object without saving it to the database
             comment = form.save(commit=False)
-            # Assign the post to the comment
             comment.post = post
-            # Save the comment to the database
             comment.save()
     return render(request, 'app/comment-form.html', {'post': post,'form': form,'comment': comment})
-
-# @require_POST
-# def post_comment(request, post_id):
-#     url = request.META.get('HTTP_REFERER')
-
-
-
-#     post = get_object_or_404(Post, id=post_id,
-#                              status=Post.Status.PUBLISHED)
-#     comment = None
-
-    
-#     form = CommentForm(data=request.POST)
-
-#     if form.is_valid():
-#         comment_form = form.save(commit=False)
-#         comment_form.post = post
-#         comment_form.save()
-#         # if comment_form.status_code == 200:
-#         #     print("Email sent successfully!", comment_form.name, comment_form.body)
-#         # else:
-#         #     print("Failed to send email. Status code:", comment_form.status_code)
-
-#         return redirect(url)
-#     # else:
-#     #     form = CommentForm()
-
-#     return render(request, 'app/comment-form.html', {'form':form, 'post':post, 'comment': comment})
-
 
 
 def search(request):
@@ -183,6 +175,17 @@ def view_all_posts(request):
 
     posts = Post.objects.all()
 
+    data = {
+        'posts':posts,
+    }
+
+    return render(request, 'app/all_posts.html', data)
+
+def add_post(request):
+    url = request.META.get('HTTP_REFERER')
+
+    posts = Post.objects.all()
+
     if request.method == 'POST':
 
         form = PostForm(request.POST, request.FILES)
@@ -191,9 +194,7 @@ def view_all_posts(request):
             check_form = form.save(commit=False)
             check_form.user = request.user
             check_form.save()
-            return redirect(url)
-
-
+            # return redirect('app:home')
 
     else:  
         form = PostForm()
@@ -203,13 +204,40 @@ def view_all_posts(request):
         'form': form,
     }
 
-    return render(request, 'app/all_posts.html', data)
+    return render(request, 'app/add_post.html', data)
+
+def edit_post(request, post_id):
+    # url = request.META.get('HTTP_REFERER')
+    post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)  
+
+        if form.is_valid():
+            edited_post = form.save(commit=False)
+            edited_post.user = request.user
+            edited_post.save()
+            # return redirect(url)
+    else:
+        form = PostForm(instance=post)  
+
+    data = {
+        'post': post,
+        'form': form,
+    }
+
+    return render(request, 'app/edit_post.html', data)
 
 
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
 
+    if request.method == 'POST':
+        post.delete()
+        
+        return redirect('app:home')  
 
-
-
+    return render(request, 'app/delete_confirmation.html', {'post': post})
 
 
 def post_share(request, post_id):
@@ -228,19 +256,3 @@ def post_share(request, post_id):
     
 
 
-
-
-# @require_POST
-# def post_comment(request, post_id):
-#     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
-#     comment = None
-
-#     form = CommentForm(data=request.POST)
-
-#     if form.is_valid():
-
-#         comment = form.save(commit=False)
-#         comment.post = post
-#         comment.save()
-
-#     return render(request, '')

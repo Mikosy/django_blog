@@ -19,3 +19,8 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', 'post', 'created', 'active']
     list_filter = ['active', 'created', 'update']
     search_fields = ['name', 'email', 'body'] 
+
+
+@admin.register(Newsletter)
+class NewsletterAdmin(admin.ModelAdmin):
+    pass

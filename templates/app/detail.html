@@ -29,7 +29,19 @@
                 
             </div>
         </div>
-    </div>
+
+        {% if user.is_authenticated %}
+
+            <div class='edit-post'>
+                <a href="{% url 'app:edit_post' post_id=posts.id %}">Edit Post</a>
+                <a href="{% url 'app:delete_post' post_id=posts.id %}">Delete Post</a>
+            </div>
+
+          {% else %}
+
+        {% endif %}
+        </div>
+        
 
     <section class="for-image">
         <div class="detail-image"
@@ -164,6 +176,9 @@
             </div>
         </div>
     </section>
+
+
+    
     
 </main>
 

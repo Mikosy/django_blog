@@ -30,21 +30,24 @@
           <div class="author-image"
           style="background-image:url('{{latest.authors_photo.url}}')"
           ></div>
-          <p>By</p>
           <div class="authors-name">
-            <p>{{latest.author}}</p>
+            <p>By: {{latest.author}}</p>
           </div>
           <div class="date-published">
             <p>{{latest.publish}}</p>
           </div>
-
-          
         </div>
-        <small>Tags: {{ post.tags.all|join:", " }}</small>
+      
 
         {% endfor %}
       </div>
     </section>
+
+    <div class="view-all-post-button" style="display:flex; justify-content:end;">
+    <form action="{% url 'app:add_post' %}">
+      <button>Add Post</button>
+    </form>
+    </div>
 
     <section class="main-text">
       <h2>Blog Posts</h2>
@@ -52,7 +55,7 @@
       <h2>Posts tagged with "{{ tag.name }}"</h2>
       {% endif %}
       <!-- First column -->
-      <div class="posts">
+      <div class="posts" style="display:flex;" id="post-list">
         {% for post in posts %}
         <div class="first-post">
           <div class="first-post-image"
@@ -105,23 +108,36 @@
       <div class="view-all-post-button">
        
 
-        {% if user.is_authenticated %}
         <form action="{% url 'app:view_all_posts' %}">
           <button>View All Post</button>
         </form>
-        {% else %}
-        
-        {% endif %}
 
       </div>
 
       <h3>Latest posts</h3>
       {% show_latest_posts 1 %}
 
+      <div class="newsletter">
+        <form action="" method="post">
+          {% csrf_token %}
+          <fieldset>
+            <legend>Subscribe to newsletter</legend>
+            <div>
+              <input type="email" name="email" placeholder="Your email...">
+            </div>
+            <div>
+              <button type="submit">Subscribe</button>
+            </div>
+            
+          </fieldset>
+        </form>
+      </div>
+
       <br>
 
-      <h3>Most commented posts</h3>
+      {% comment %} <h3>Most commented posts</h3>
       {% get_most_commented_posts as most_commented_posts %}
+      {% if most_commented_posts %}
       <ol>
         {% for post in most_commented_posts %}
         <li>
@@ -129,16 +145,19 @@
         </li>
         {% endfor %}
       </ol>
+      {% else %}
+
+      {% endif %} {% endcomment %}
 
 
       <br>
 
-      <p>
+      {% comment %} <p>
         <a href="{% url "app:post_feed" %}">
         Subscribe to my RSS feed
         </a>
         </p>
-      <br>
+      <br> {% endcomment %}
       <div> <b> {% total_posts %} </b> posts published so far.</div>
 
     </section>
@@ -150,3 +169,4 @@
 
 
 {% endblock content %}
+
