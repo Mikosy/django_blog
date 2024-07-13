@@ -55,47 +55,52 @@
   });
 
 
-
 // Adding Post 
-  // $(document).ready(function (){
-  //   $("#search-form").submit(function (event){
-  //     event.preventDefault();
+  $(document).ready(function (){
+    $("#add-post").submit(function (event){
+      event.preventDefault();
 
-  //     var formData = $("#search-form").serialize();
       
-  //     $.ajax({
-  //       type: "POST",
-  //       url: "{% url 'app:search' %}",
-  //       data: formData,
-  //       success: function(data){
-  //         $("#post-list").append(data.html);
-  //       },
-  //       error: function(xhr, errmsg, err){
-  //         console.log("Error", err);
-  //       },
-  //     });
-  //   });
-  // });
+      
+      $.ajax({
+        type: "POST",
+        url: "{% url 'app:search' %}",
+        data: formData,
+        success: function(data){
+          $("#post-list").append(data.html);
+        },
+        error: function(xhr, errmsg, err){
+          console.log("Error", err);
+        },
+      });
+    });
+  });
   
 // Search
 
-$(document).ready(function () {
-  $("#search-form").submit(function (event) {
-      event.preventDefault();
+// $(document).ready(function () {
+//   $("#search-form").submit(function (event) {
+//       event.preventDefault();
 
-      var query = $("#search-query").val();
+//       var query = $("#search-query").val();
 
-      $.ajax({
-          type: "POST",
-          url: "{% url 'app:search' %}",  
-          data: { 'query': query },
-          success: function (data) {
-              $("#search-results").html(data.results.join('<br>'));
-          },
-          error: function (xhr, errmsg, err) {
-              console.log("Error:", err);
-          },
-      });
-  });
-});
+//       $.ajax({
+//           type: "POST",
+//           url: "{% url 'app:search' %}",  
+//           data: { 'query': query },
+//           success: function (data) {
+//               $("#search-results").html(data.results.join('<br>'));
+//           },
+//           error: function (xhr, errmsg, err) {
+//               console.log("Error:", err);
+//           },
+//       });
+//   });
+// });
 
+
+
+
+function hideButton() {
+  document.getElementById('message-button').style.display = 'none'
+}

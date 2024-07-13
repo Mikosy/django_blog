@@ -1,13 +1,12 @@
 {% load static %}
 
     <form method="post" >
-        {% comment %} {{form.as_p}} {% endcomment %}
         {% csrf_token %}
-        <div class="commentors-name">
+      <div class="commentors-name">
             <input type="text" name="name" placeholder="your name..." required>
         </div>
         <div class="textarea">
-            <textarea name="" id="" name="body" cols="70" rows="6" placeholder="add a comment..." required></textarea>
+            <textarea id="" name="body" cols="70" rows="6" placeholder="add a comment..." required></textarea>
         </div>
 
         

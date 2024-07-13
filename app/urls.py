@@ -19,8 +19,9 @@ urlpatterns = [
     path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
 
     path('search', views.search, name="search"),
+    # path('search_blog', views.search_blog, name="search_blog"),
     path('view_all_posts', views.view_all_posts, name='view_all_posts'),
-    path('<int:post_id>/comment/', views.post_comment, name="post_comment"),
+    # path('<int:post_id>/comment/', views.post_comment, name="post_comment"),
     path('feed/', LatestPostsFeed(), name='post_feed'),
 
 

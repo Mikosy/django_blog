@@ -1,187 +1,206 @@
-{% extends "app/base.html" %}
-{% load blog_tags %}
-
-{% load static %}
+{% extends "app/base.html" %} {% load blog_tags %} {% load static %} 
 
 {% block content %}
 
 <main class="container">
-    
-    <div class="detail-main">
-        <div class="badge">
-            <button>{{ posts.slug }}</button>
-        </div>
-        <small>A {{ reading_time }} minute(s) read.</small>
+  <div class="detail-main">
+    <div class="badge">
+      <button>{{ posts.slug }}</button>
+    </div>
+    <small>A {{ reading_time }} minute(s) read.</small>
 
-        <div class="detail-title">
-            <h1>{{ posts.title }}</h1>
-        </div>
-        <div class="detail-author">
-            <div class="detail-author-image"
-          style="background-image:url('{{posts.authors_photo.url}}')"
-            
-            ></div>
-            <div class="detail-author-name">
-                <p>{{ posts.publish }} by {{ posts.author }}</p>
-            </div> 
-            <div class="detail-date-posted">
-                {% comment %} <p>{{post.status}}</p> {% endcomment %}
-                
-            </div>
-        </div>
+    <div class="detail-title">
+      <h1>{{ posts.title }}</h1>
+    </div>
+    <div class="detail-author">
+      <div
+        class="detail-author-image"
+        style="background-image:url('{{posts.authors_photo.url}}')"
+      ></div>
+      <div class="detail-author-name">
+        <p>{{ posts.publish }} by {{ posts.author }}</p>
+      </div>
+      <div class="detail-date-posted">
+        {% comment %}
+        <p>{{post.status}}</p>
+        {% endcomment %}
+      </div>
+    </div>
 
-        {% if user.is_authenticated %}
+    {% if user.is_authenticated %}
 
-            <div class='edit-post'>
-                <a href="{% url 'app:edit_post' post_id=posts.id %}">Edit Post</a>
-                <a href="{% url 'app:delete_post' post_id=posts.id %}">Delete Post</a>
-            </div>
+    <div class="edit-post">
+      <a href="{% url 'app:edit_post' post_id=posts.id %}">Edit Post</a>
+      <a href="{% url 'app:delete_post' post_id=posts.id %}">Delete Post</a>
+    </div>
 
-          {% else %}
+    {% else %} {% endif %}
+  </div>
 
-        {% endif %}
-        </div>
-        
+  <section class="for-image">
+    <div
+      class="detail-image"
+      style="background-image:url('{{posts.cover_photo.url}}')"
+    ></div>
 
-    <section class="for-image">
-        <div class="detail-image"
-        style="background-image:url('{{posts.cover_photo.url}}')"
+    <article>
+      <div class="first-paragraph">
+        {% comment %} <p>{{ posts.body|markdown }}</p> {% endcomment %}
+        <p>{{ posts.body|linebreaks }}</p>
+      </div>
+
+      <blockquote>{{posts.blockquote}}</blockquote>
+
+      {% comment %}
+      <div class="second-paragraph">
+        <p></p>
+
+        <p></p>
+
+        <h3></h3>
+
+        <p></p>
+
+        <p></p>
+      </div>
+      {% endcomment %}
+    </article>
+  </section>
+
+  <section class="main-text">
+    <h2>Similar Posts</h2>
+    <!-- First column -->
+    <div
+      class="posts"
+      style="
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      "
+    >
+      {% for post in similar_posts %}
+      <div class="first-post">
+        <div
+          class="first-post-image"
+          style="background-image:url('{{post.cover_photo.url}}')"
         ></div>
-
-        <article>
-            <div class="first-paragraph">
-                <p>{{ posts.body|markdown }}</p>
-
-                <p></p>
-
-                <h3></h3>
-
-                <p></p>
-
-                <p></p>
-            </div>
-
-            <blockquote>
-                {{posts.blockquote}}
-            </blockquote>
-
-            <div class="second-paragraph">
-                <p></p>
-
-                <p></p>
-
-                <h3></h3>
-
-                <p></p>
-
-                <p></p>
-            </div>
-
-        </article>
-    </section>
-
-
-    <section class="main-text">
-        <h2>Similar Posts</h2>
-        <!-- First column -->
-        <div class="posts" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
-            {% for post in similar_posts %}
-          <div class="first-post">
-            <div class="first-post-image"
-            style="background-image:url('{{post.cover_photo.url}}')"
-            ></div>
-            <div class="badge">
-              <button>{{post.slug}}</button>
-            </div>
-            <div class="first-post-title">
-              <a href="{{ post.get_absolute_url }}">
-                <h2>{{ post.title|truncatewords:5  }}</h2>
-              </a>
-            </div>
-            <div class="first-post-author">
-              <div class="first-post-author-image"
-              style="background-image:url('{{post.authors_photo.url}}')"
-              ></div>
-              <div class="first-post-authors-name">
-                <span> {{ post.publish }}</span> |
-                <span> {{ post.author }}</span>
-              </div>
-              <div class="first-post-date-published">
-              </div>
-            </div>
-            <small>Tags: {{ post.tags.all|join:", " }}</small>
-  
+        <div class="badge">
+          <button>{{post.slug}}</button>
+        </div>
+        <div class="first-post-title">
+          <a href="{{ post.get_absolute_url }}">
+            <h2>{{ post.title|truncatewords:5 }}</h2>
+          </a>
+        </div>
+        <div class="first-post-author">
+          <div
+            class="first-post-author-image"
+            style="background-image:url('{{post.authors_photo.url}}')"
+          ></div>
+          <div class="first-post-authors-name">
+            <span> {{ post.publish }}</span> |
+            <span> {{ post.author }}</span>
           </div>
-          {% empty %}
-          There are no similar posts yet.
-          {% endfor %}
-           
-
-          
+          <div class="first-post-date-published"></div>
         </div>
-  
+        <small>Tags: {{ post.tags.all|join:", " }}</small>
+      </div>
+      {% empty %} There are no similar posts yet. {% endfor %}
+    </div>
+  </section>
 
-        
-  
-      </section>
+  <section class="comment-section">
+    <div class="comment-form">
+      <h3>Add a comment</h3>
 
-      <section class="comment-section">
-        <div class="comment-form">
-            <h3>Add a comment</h3>
-    
-            <div class="parent-comment-div">
-                {% include "app/comment-form.html" %}
-    
-                <div class="comments">
-                    <div class="comments-jumbotron">
-                        {% with posts.comments.count as total_comments %}
-                        <h3>
-                        {{ total_comments }} Comment on this post{{ total_comments|pluralize }}
-                        </h3>
-                        {% endwith %}
-                        <div class="commentor-and-comment">
-                        {% for comment in posts.comments.all %}
-                          <span> {{ forloop.counter }} by {{comment.name}} ,</span> 
-                          <span>{{comment.created}}</span>
-                          <hr>
-    
-                            <div class="comments-word">
-                                <p>{{comment.body|linebreaks}}</p>
-                            </div>
-                        {% empty %}
-                        <p>There are no comments... </p>
-                        {% endfor %}
-                        </div>
-    
-    
-                        {% comment %} <div class="pagination">
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                                </svg>
-                            </button>
-                            <button>1</button>
-                            <button class="active">2</button>
-                            <button>...</button>
-                            <button>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                                </svg>  
-                            </button>
-                        </div> {% endcomment %}
-                    </div>
-                    
-    
-                </div>
+      <div class="parent-comment-div">
+        <form method="post">
+          {% csrf_token %}
+          <div class="commentors-name">
+            <input
+              type="text"
+              name="name"
+              placeholder="your name..."
+              required
+            />
+          </div>
+          <div class="textarea">
+            <textarea
+              id=""
+              name="body"
+              cols="70"
+              rows="6"
+              placeholder="add a comment..."
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit">Add Comment</button>
+        </form>
+
+        <div class="comments">
+          <div class="comments-jumbotron">
+            {% with posts.comments.count as total_comments %}
+            <h3>
+              {{ total_comments }} Comment on this post{{
+              total_comments|pluralize }}
+            </h3>
+            {% endwith %}
+            <div class="commentor-and-comment">
+              {% for comment in posts.comments.all %}
+              <span> {{ forloop.counter }} by {{comment.name}} ,</span>
+              <span>{{comment.created}}</span>
+              <hr />
+
+              <div class="comments-word">
+                <p>{{comment.body|linebreaks}}</p>
+              </div>
+              {% empty %}
+              <p>There are no comments...</p>
+              {% endfor %}
             </div>
+
+            {% comment %}
+            <div class="pagination">
+              <button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-arrow-left"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                  />
+                </svg>
+              </button>
+              <button>1</button>
+              <button class="active">2</button>
+              <button>...</button>
+              <button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-arrow-right"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+                  />
+                </svg>
+              </button>
+            </div>
+            {% endcomment %}
+          </div>
         </div>
-    </section>
-
-
-    
-    
+      </div>
+    </div>
+  </section>
 </main>
 
 {% endblock content %}
-
-

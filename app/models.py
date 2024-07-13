@@ -3,6 +3,10 @@ from django.db.models.query import QuerySet
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+# to check if the email have been registered before 
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+
 from taggit.managers import TaggableManager
 
 from django.urls import reverse
@@ -98,7 +102,13 @@ class Comment(models.Model):
     
 
 class Newsletter(models.Model):
-    email = models.CharField(max_length=200)
+    email = models.EmailField(unique=True)
 
     def __str__(self):
         return f'{self.email} subscribed to your newsletter'
+    
+    def clean(self):
+        try:
+            validate_email(self.email)
+        except ValidationError as e:
+            raise ValidationError({'Email': "Invalid email format"})

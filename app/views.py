@@ -3,6 +3,8 @@ from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from django.views.decorators.http import require_POST
+from django.contrib import messages
+from django.contrib.auth import decorators
 
 from taggit.models import Tag
 
@@ -57,6 +59,7 @@ def home(request, tag_slug=None):
                 check_form.user = None
 
             check_form.save()
+            messages.success(request, "You've subscribed successfully to the newsletter")
             return redirect('/')
         
     else:
@@ -102,12 +105,6 @@ def post_detail(request, year, month, day, post):
                              publish__month=month,
                              publish__day=day)
     
-    # List of similar posts
-    # post_tags_ids = post.tags.values_list('id', flat=True)
-    # similar_posts = Post.published.filter(tags__in=post_tags_ids)\
-    #     .exclude(id=post.id)
-    # similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
-    #     .order_by('-same_tags','-publish')[:4]
     
     words = posts.body.split()
     word_count = len(words)
@@ -116,11 +113,26 @@ def post_detail(request, year, month, day, post):
     average_reading_speed = 200
     reading_time_minutes = word_count / average_reading_speed
     reading_time_minutes = round(reading_time_minutes)
+
     
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment_form = form.save(commit=False)
+            if request.user.is_authenticated: 
+                comment_form.user = request.user
+            else:
+                comment_form.user = None   
 
+                comment_form.save()  
+                print('form submitted successfully', comment_form)
+
+    else:
+        form = CommentForm()
+        print('Error occured')
+
+    
     comments = Comment.objects.filter(active=True)
-
-    form = CommentForm()
 
     # creating function for getting similar posts using tags
     post_tags_ids = posts.tags.values_list('id', flat=True)
@@ -140,21 +152,27 @@ def post_detail(request, year, month, day, post):
 
     return render(request, 'app/detail.html', data)
 
-@require_POST
-def post_comment(request, post_id):
-    post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
-    comment = None
-    if request.method == 'POST':
-        form = CommentForm(data=request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-    return render(request, 'app/comment-form.html', {'post': post,'form': form,'comment': comment})
+'''
+Using the binary search algorithm 
+'''
+# def binary_search_algorithm(posts, search_title):
+#     low = 0
+#     high = len(posts) - 1
+#     while low <= high:
+#         mid = (low + high) // 2
+#         mid_title = posts[mid].title
+
+#         if mid_title == search_title:
+#             return posts[mid]
+#         elif mid_title < search_title:
+#             low = mid + 1
+#         else:
+#             high = mid - 1
+
+#     return None
 
 
 def search(request):
-
     
     if request.method == 'POST':
         search_term = request.POST['search_term']
@@ -194,7 +212,8 @@ def add_post(request):
             check_form = form.save(commit=False)
             check_form.user = request.user
             check_form.save()
-            # return redirect('app:home')
+            messages.success(request, "You've added a post")
+            return redirect('app:home')
 
     else:  
         form = PostForm()
@@ -206,23 +225,25 @@ def add_post(request):
 
     return render(request, 'app/add_post.html', data)
 
+
 def edit_post(request, post_id):
-    # url = request.META.get('HTTP_REFERER')
-    post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
+    url = request.META.get('HTTP_REFERER')
+    posts = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
 
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES, instance=post)  
+        form = PostForm(request.POST, request.FILES, instance=posts)  
 
         if form.is_valid():
             edited_post = form.save(commit=False)
             edited_post.user = request.user
             edited_post.save()
-            # return redirect(url)
+            messages.success(request, "You've edited a post")
+            return redirect(url)
     else:
-        form = PostForm(instance=post)  
+        form = PostForm(instance=posts)  
 
     data = {
-        'post': post,
+        'posts': posts,
         'form': form,
     }
 
@@ -234,25 +255,26 @@ def delete_post(request, post_id):
 
     if request.method == 'POST':
         post.delete()
+        messages.success(request, "You've deleted a post")
         
         return redirect('app:home')  
 
     return render(request, 'app/delete_confirmation.html', {'post': post})
 
 
-def post_share(request, post_id):
+# def post_share(request, post_id):
 
-    post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
+#     post = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
 
 
-    if request.method == 'POST':
+#     if request.method == 'POST':
 
-        form = EmailPostForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-        else:
-            form = EmailPostForm()
-        return render(request, 'app/post-share.html', {'post':post, 'form':form, })
+#         form = EmailPostForm(request.POST)
+#         if form.is_valid():
+#             cd = form.cleaned_data
+#         else:
+#             form = EmailPostForm()
+#         return render(request, 'app/post-share.html', {'post':post, 'form':form, })
     
 
 

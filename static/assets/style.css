@@ -23,9 +23,11 @@ a:hover {
 button {
     cursor: pointer;
 }
-header{
+
+header {
     position: relative;
 }
+
 .container {
     padding-left: 14rem;
     padding-right: 14rem;
@@ -44,6 +46,7 @@ header{
     justify-content: space-between;
     margin: 16px 0;
 }
+
 .logo span {
     color: rgb(255, 72, 40);
 }
@@ -59,10 +62,12 @@ header{
     align-items: center;
     gap: 20px;
 }
-.hide-form{
+
+.hide-form {
     display: none;
 }
-#search-field{
+
+#search-field {
     display: flex;
     align-items: center;
     height: 100vh;
@@ -70,11 +75,11 @@ header{
     position: absolute;
     z-index: 1;
     top: -15px;
-    left:0;
+    left: 0;
     width: 100%;
     transition: 1s ease-in-out;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background: -webkit-linear-gradient(#151515, rgba(0, 0, 0, 0.9)); 
+    background: -webkit-linear-gradient(#151515, rgba(0, 0, 0, 0.9));
 }
 
 .search form {
@@ -90,10 +95,12 @@ header{
     border: none;
     outline: none;
 }
-.search .close-button{
+
+.search .close-button {
     margin-left: 5px;
 }
-.search #close-button{
+
+.search #close-button {
     padding: 6px 12px;
     background: #FF4828;
     color: #fff;
@@ -570,13 +577,20 @@ main .detail-main .badge button {
 
 .for-image .first-paragraph p,
 .second-paragraph p {
+    width: 100%;
     font-family: lato;
     font-size: 1.2rem;
     padding: 10px 0;
+    text-align: justify;
+}
+
+.for-image article {
+    width: 100%;
 }
 
 .for-image .first-paragraph h3,
 .second-paragraph h3 {
+    width: 100%;
     font-size: 2rem;
     padding: .45em 0;
 }
@@ -792,19 +806,21 @@ main .detail-main .badge button {
     }
 }
 
-.newsletter fieldset{
-    border-radius:10px;
-    height:100px;
+.newsletter fieldset {
+    border-radius: 10px;
+    height: 100px;
     width: 500px;
     display: flex;
     align-items: center;
     padding: 0 20px;
     border: 1px solid #c5c5c5;
 }
-.newsletter legend{
+
+.newsletter legend {
     text-transform: uppercase;
     color: #FF4828;
 }
+
 .newsletter input {
     padding: .8em;
     border-top-left-radius: 10px;
@@ -819,12 +835,13 @@ main .detail-main .badge button {
     width: 400px;
     margin: .8em 0;
 }
+
 .newsletter button {
     outline: none;
     padding: .8em;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    color: #fff ;
+    color: #fff;
     border: 1px solid rgb(175, 175, 175);
     background: rgb(255, 72, 40);
     padding: 10px 20px;
@@ -838,6 +855,144 @@ main .detail-main .badge button {
 
 
 
+/* 
+Colour codes
+
+- for success: #10B981
+- for error: #EF4444
+- for info: #3B82F6
+- for warning: #F59EOB
+*/
+
+
+.message-section {
+    display: flex;
+    justify-content: end;
+    padding: .65em .23em;
+}
+
+.messages button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    height: 25px;
+    width: 25px;
+    border-radius: 15px;
+    border: none;
+    background-color: transparent;
+    border: 1px solid #c5c5c5;
+}
+
+.messages button svg {
+    color: #fff;
+    font-weight: 600;
+
+}
+
+.messages button:hover {
+    border: 1px solid #fff;
+}
+
+.messages .error-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    width: 30em;
+    background-color: #ef4444;
+    box-shadow: 0.2px 1px 2px #c5c5c5;
+    padding: .83em;
+    color: #fff;
+    font-size: .85rem;
+    margin: .65em 0;
+    border-radius: 3px;
+    border-bottom: 3px solid rgb(255, 255, 255);
+    animation: Msg 0.9s ease-in-out forwards;
+}
+
+/* Define the fadeInUp animation */
+@keyframes Msg {
+    from {
+        opacity: 0;
+        transform: translateX(200px);
+        /* Move the cards up */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        /* Reset the position */
+    }
+}
+
+/* .messages .error-message p {
+    width: 0em;
+} */
+
+.messages .success-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+    width: 30em;
+    background-color: #10b981;
+    box-shadow: 0.2px 1px 2px #c5c5c5;
+    padding: .83em;
+    color: #fff;
+    font-size: .85rem;
+    margin: .65em 0;
+    border-radius: 3px;
+    border-bottom: 3px solid rgb(255, 255, 255);
+    animation: Msg 0.9s ease-in-out forwards;
+}
+
+/* Define the fadeInUp animation */
+@keyframes Msg {
+    from {
+        opacity: 0;
+        transform: translateX(200px);
+        /* Move the cards up */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        /* Reset the position */
+    }
+}
+
+
+.messages .info-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+    width: 30em;
+    background-color: #f59e0b;
+    box-shadow: 0.2px 1px 2px #c5c5c5;
+    padding: .83em;
+    color: #fff;
+    font-size: .85rem;
+    border-radius: 3px;
+    border-bottom: 3px solid rgb(255, 255, 255);
+    animation: Msg 0.9s ease-in-out forwards;
+}
+
+/* Define the fadeInUp animation */
+@keyframes Msg {
+    from {
+        opacity: 0;
+        transform: translateX(200px);
+        /* Move the cards up */
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        /* Reset the position */
+    }
+}
 
 
 
@@ -858,11 +1013,21 @@ main .detail-main .badge button {
 
 
 
-@media screen and (max-width:1024px){
+
+
+
+
+
+
+
+
+
+@media screen and (max-width:1024px) {
     .container {
         padding-left: 10rem;
         padding-right: 10rem;
     }
+
     .comments-jumbotron {
         width: 100%;
     }
@@ -870,17 +1035,38 @@ main .detail-main .badge button {
 
 
 @media screen and (max-width: 990px) {
-    #search-form-input{
-        display: block;
-    }
-    
-    .newsletter fieldset{
+    .message-section {
         width: 100%;
     }
+
+    .messages .error-message {
+        width: 100%;
+
+    }
+
+    .messages .info-message {
+        width: 100%;
+
+    }
+
+    .messages .success-message {
+        width: 100%;
+    }
+
+
+
+    #search-form-input {
+        display: block;
+    }
+
+    .newsletter fieldset {
+        width: 100%;
+    }
+
     .newsletter input {
         width: 100%;
     }
-    
+
     .container {
         padding-left: 1rem;
         padding-right: 1rem;
@@ -895,10 +1081,11 @@ main .detail-main .badge button {
     .links {
         display: none;
     }
+
     #search-query {
         display: none;
     }
-    
+
     .search form svg,
     .change-of-icon svg {
         display: block;
@@ -1054,10 +1241,12 @@ main .detail-main .badge button {
         border-radius: 6px;
         padding: 1rem;
     }
+
     .first-post {
         height: 350px;
         width: 100%;
     }
+
     .posts {
         display: flex;
         flex-direction: column;
@@ -1066,6 +1255,4 @@ main .detail-main .badge button {
     }
 }
 
-@media screen and (min-width:320px){
-    
-}
+@media screen and (min-width:320px) {}
