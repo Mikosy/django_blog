@@ -8,7 +8,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ['status', 'created', 'publish', 'author', 'pinned_post']
     search_fields = ['title', 'body']
     prepopulated_fields = {'slug':('title',)}
-    fields = ('title', 'slug', 'author', 'body', 'status', 'publish', 'pinned_post', 'cover_photo', 'post_photo_one', 'authors_photo', 'post_photo_two', 'post_photo_three', 'blockquote', 'tags') 
+    fields = ('title', 'slug', 'author', 'body', 'status', 'publish', 'pinned_post', 'cover_photo', 'authors_photo','blockquote', 'tags')
     raw_id_fields = ['author']
     date_hierarchy = 'publish'
     ordering = ['status', 'publish']

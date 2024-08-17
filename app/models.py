@@ -1,114 +1,80 @@
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.db import models
-from django.db.models.query import QuerySet
+from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.models import User
-
-# to check if the email have been registered before 
-from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
-
 from taggit.managers import TaggableManager
-
 from django.urls import reverse
+from ckeditor_uploader.fields import RichTextUploadingField
 
-# Create your models here.
 
 class PublishedManager(models.Manager):
-    '''
-    by default django retrieves data from the database by using the .objects manager. we can customize ours to retrieve data from the db using a custom manager
-    '''
     def get_queryset(self):
-        return super().get_queryset()\
-            .filter(status=Post.Status.PUBLISHED)
+        return super().get_queryset().filter(status=Post.Status.PUBLISHED)
 
 
 class Post(models.Model):
-    # Adding a status field that helps keep posts as draft until ready for publication
     class Status(models.TextChoices):
-        DRAFT = 'DF', 'Draft'
-        PUBLISHED = 'PB', 'Published'
+        DRAFT = 'DF', _('Draft')
+        PUBLISHED = 'PB', _('Published')
 
-
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, verbose_name=_("Title"))
     slug = models.SlugField(max_length=250, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
-
     tags = TaggableManager()
-
-    authors_photo = models.ImageField(upload_to='media', height_field=None, width_field=None, max_length=None, blank=True)
-
-
-    cover_photo = models.ImageField(upload_to='media', height_field=None, width_field=None, max_length=None, blank=True)
-    post_photo_one = models.ImageField(upload_to='media', height_field=None, width_field=None, max_length=None, blank=True)
-    post_photo_two = models.ImageField(upload_to='media', height_field=None, width_field=None, max_length=None, blank=True)
-    post_photo_three = models.ImageField(upload_to='media', height_field=None, width_field=None, max_length=None, blank=True)
-
-    body = models.TextField()
-    blockquote = models.TextField(max_length=200, blank=True)
+    authors_photo = models.ImageField(upload_to='media', blank=True)
+    cover_photo = models.ImageField(upload_to='media', blank=True)
+    body = RichTextUploadingField(verbose_name=_("Body"))
+    blockquote = models.TextField(max_length=200, blank=True, verbose_name=_("Blockquote"))
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     pinned_post = models.BooleanField(default=False)
-    status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT)
-    
+    status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT, verbose_name=_("Status"))
 
-    objects = models.Manager() #django manager
-    published = PublishedManager() #custom manager
-
-
+    objects = models.Manager()
+    published = PublishedManager()
 
     class Meta:
-        # Pluarlizes the name in the admin panel
-        verbose_name_plural = 'Post'
-
-        # It sorts datas by publish (a reversed order)
+        verbose_name_plural = _("Posts")
         ordering = ['-publish']
-
-        # database indexes(it will improve performance for queries filtering)
-        indexes = [
-            models.Index(fields=['-publish'])
-        ]
+        indexes = [models.Index(fields=['-publish'])]
 
     def __str__(self):
         return self.title
-    
-    # Use this when you want to use canonical url
+
     def get_absolute_url(self):
-        return reverse("app:post_detail", args=[self.publish.year,
-                                                self.publish.month,
-                                                self.publish.day,
-                                                self.slug])
+        return reverse("app:post_detail", args=[self.publish.year, self.publish.month, self.publish.day, self.slug])
+
+
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    name = models.CharField(max_length=80)
-    email = models.EmailField()
-    body = models.TextField()
-
-    comment_photo = models.ImageField(upload_to='media', height_field=None, width_field=None, max_length=None, blank=True)
-
+    name = models.CharField(max_length=80, verbose_name=_("Name"))
+    email = models.EmailField(verbose_name=_("Email"))
+    body = models.TextField(verbose_name=_("Body"))
+    comment_photo = models.ImageField(upload_to='media', blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(default=True, verbose_name=_("Active"))
 
     class Meta:
         ordering = ['created']
-        indexes = [
-            models.Index(fields=['created']),
-        ]
-    
+        indexes = [models.Index(fields=['created'])]
+
     def __str__(self):
         return f"Comment by {self.name} on {self.post}"
-    
+
 
 class Newsletter(models.Model):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, verbose_name=_("Email"))
 
     def __str__(self):
         return f'{self.email} subscribed to your newsletter'
-    
+
     def clean(self):
         try:
             validate_email(self.email)
         except ValidationError as e:
-            raise ValidationError({'Email': "Invalid email format"})
+            raise ValidationError({'Email': _("Invalid email format")})

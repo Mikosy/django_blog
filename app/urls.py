@@ -26,6 +26,6 @@ urlpatterns = [
 
 
 
-
+    path('template_test/', views.template_test, name='template_test'),
 ]
 

@@ -1,0 +1,96 @@
+{% extends 'app/elements/admin.html' %}
+{% load static %}
+
+{% block content %}
+<main class="container main__">
+
+    <section class="row">
+        <h2 class="fw-bold mt-2 pb-4">Post Details </h2>
+        <div class="col-xl-4">
+            <div>
+                <p>A 5mins read.</p>
+                <div class="author__">
+                    <div class="authors__img">
+                        <img src="{% static 'elements/images/original-f87c198ed9aac73fb1e284bc995d8616.png' %}" alt="authors__img">
+                    </div>
+                    <div class="authors__name">
+                        <h5 class="mb-0 pt-3">John Doe</h5>
+                        <p class="mt-0 pt-0">August 20, 2023</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tag-slug">
+                <div class="tag__">
+                    <a href="" class="btn btn-sm btn-outline-light ">Tag-one</a>
+                </div>
+                <div class="slug__"></div>
+            </div>
+
+            <h4 class="my-3 mt-5">Related Posts</h4>
+            <div class="related__posts">
+                <div class="related__posts_img">
+                    <img src="{% static 'elements/images/original-f87c198ed9aac73fb1e284bc995d8616.png' %}" alt="related__posts_img">
+                </div>
+                <div class="related__posts_title">
+                    <h4>
+                        <a href="">The Power of Consistency in Tech</a>
+                    </h4>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-xl-8">
+            <div class="card detail__card" style="">
+              <img src="{% static 'elements/images/original-d46a0a4e2146c4427648794f660194e5.jpg' %}" class="card-img-top" alt="...">
+              <div class="card-body">
+                  <h2 class="card-title pb-3 fw-bold">The Power of Consistency in Tech: Why It Matters and How to Achieve It details</h2>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              </div>
+            </div>
+
+            <div class="card shadow-md comment__">
+<!--                <h4 class="pb-2 fw-bold">Leave a comment</h4>-->
+                <form>
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 col-sm-6">
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">email</label>
+                              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="email@email.com">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6 col-sm-6">
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">name</label>
+                              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlTextarea1" class="form-label">comment</label>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+
+                    <div class="submit__">
+                        <button class="btn btn-md text-light fw-bold" type="submit">Add comment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <section class="scroll__to__top shadow-lg" id="scrollToTop">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+            </svg>
+        </div>
+    </section>
+
+</main>
+{% endblock %}

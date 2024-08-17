@@ -22,23 +22,35 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+# wrapping language
+from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls.i18n import set_language
+
 # adding sitemap
 from django.contrib.sitemaps.views import sitemap
 from app.sitemaps import PostSitemap
 
+
+
+
 sitemaps = {
-    'posts':PostSitemap,
+    'posts': PostSitemap,
 }
 
 urlpatterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
-
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     # Sitempas url
-    path('sitemap.xml', sitemap, {'sitemaps':sitemaps}, name='django.contrib.sitemaps.views.sitemap')
-]
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
+)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#

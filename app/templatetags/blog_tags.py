@@ -3,6 +3,8 @@ from . .models import *
 
 from django.db.models import Count
 
+from django.utils.html import format_html
+
 # using markdown
 from django.utils.safestring import mark_safe
 import markdown
@@ -32,3 +34,13 @@ def get_most_commented_posts(count=2):
 @register.filter(name='markdown')
 def markdown_format(text):
     return mark_safe(markdown.markdown(text))
+
+@register.filter(name='truncate_words')
+def truncate_words(value, arg):
+    try:
+        words = value.split()
+        if len(words) > arg:
+            return format_html('{}...', ' '.join(words[:arg]))
+        return value
+    except Exception as e:
+        return value

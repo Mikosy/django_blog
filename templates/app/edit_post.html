@@ -21,8 +21,9 @@
 
   <form method="post" action="{{post.get_absolute_url}}" enctype="multipart/form-data">
     {% csrf_token %}
+    {{ form.media }}
     {{ form.as_p }}
-  
+
     <button type="submit">Update Post</button>
   </form>
   

@@ -17,7 +17,7 @@ a {
 }
 
 a:hover {
-    color: rgb(255, 72, 40);
+    color: #8fa312;
 }
 
 button {
@@ -48,7 +48,7 @@ header {
 }
 
 .logo span {
-    color: rgb(255, 72, 40);
+    color: #8fa312;
 }
 
 .links ul {
@@ -102,7 +102,7 @@ header {
 
 .search #close-button {
     padding: 6px 12px;
-    background: #FF4828;
+    background: #8fa312;
     color: #fff;
     border-color: #fff;
     outline: none;
@@ -113,7 +113,7 @@ header {
 
 .search form svg,
 .change-of-icon svg {
-    color: rgb(255, 72, 40);
+    color: #8fa312;
     cursor: pointer;
 }
 
@@ -160,7 +160,7 @@ main .jumbotron .badge button {
     padding: 5px;
     border-radius: 7px;
     color: #fff;
-    background-color: rgb(255, 72, 40);
+    background-color: #8fa312;
     margin: 5px 0;
     font-size: 12px;
 
@@ -256,7 +256,7 @@ main .main-text p {
     border-radius: 3px;
     color: #fff;
     /* background-color: rgb(255, 72, 40); */
-    background: linear-gradient(to left, #ff8787, rgb(255, 72, 40));
+    background: linear-gradient(to left, #659e67, #8fa312);
     margin: 7px 0;
     font-size: 12px;
 }
@@ -539,7 +539,7 @@ main .detail-main .badge button {
     border-radius: 7px;
     margin: 5px 0;
     font-size: .725rem;
-    background-color: rgb(255, 72, 40);
+    background:linear-gradient(to left, #659e67, #8fa312);
     color: #fff;
 }
 
@@ -599,8 +599,8 @@ main .detail-main .badge button {
     background-color: #222;
     padding: 1.5em;
     margin: 1.3em 0;
-    border: 1px solid #c5c5c5;
-    border-left: 4px solid #ff4828;
+    border: 1px solid #8fa312;
+    border-left: 4px solid #8fa312;
     border-radius: 10px;
     color: #fff;
     font-style: italic;
@@ -652,7 +652,7 @@ main .detail-main .badge button {
     border: 1px solid #c5c5c5;
     /* background-color: rgb(255, 72, 40); */
     background-color: transparent;
-    color: #ff4828;
+    color: #8d8d8d;
     font-weight: 400;
     cursor: pointer;
     transition: background-color 0.5s ease-in-out;
@@ -661,7 +661,7 @@ main .detail-main .badge button {
 }
 
 .comment-form form button:hover {
-    background-color: rgb(255, 72, 40);
+    background-color: #8fa312;
     color: #fff;
 
 }
@@ -699,7 +699,7 @@ main .detail-main .badge button {
     font-size: .9rem;
     font-weight: bold;
     text-decoration: underline;
-    text-decoration-color: #FF4828;
+    text-decoration-color: #8fa312;
     color: #fff;
     text-decoration-thickness: 3px;
 }
@@ -711,7 +711,7 @@ main .detail-main .badge button {
     box-shadow: 0.2px 1px 2px #c5c5c5;
     background-color: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
-    border-left: 4px solid #ff4828;
+    border-left: 4px solid #8fa312;
     border-radius: 12px;
     margin-top: 0.5em;
     padding: .5em;
@@ -782,7 +782,7 @@ main .detail-main .badge button {
 
 .pagination button.active {
     color: #fff;
-    background-color: #ff4828;
+    background:linear-gradient(to left, #659e67, #8fa312);
     height: 33px;
     width: 33px;
     display: flex;
@@ -818,7 +818,7 @@ main .detail-main .badge button {
 
 .newsletter legend {
     text-transform: uppercase;
-    color: #FF4828;
+    color: #8d8d8d;
 }
 
 .newsletter input {
@@ -838,13 +838,12 @@ main .detail-main .badge button {
 
 .newsletter button {
     outline: none;
-    padding: .8em;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     color: #fff;
     border: 1px solid rgb(175, 175, 175);
-    background: rgb(255, 72, 40);
-    padding: 10px 20px;
+    background: #8fa312;
+    padding: 12px 20px;
 
 }
 
@@ -1074,7 +1073,7 @@ Colour codes
 
     .parent-div {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         width: 100%;
     }
 

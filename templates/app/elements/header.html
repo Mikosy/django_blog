@@ -1,0 +1,64 @@
+{% load static %}
+{% load i18n %}
+
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-light d-block p-3 shadow-md ">
+      <div class="container-xl">
+        <a href="{% url 'app:home' %}"  style="font-size:2rem;">
+          <img src="{% static 'assets/images/logo-text.png' %}" alt="Grocsale_logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+          <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+            <li class="nav-item dropstart">
+              <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-search dropleft mt-2 me-2" role="button" data-bs-toggle="dropdown" aria-expanded="false" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+              </svg>
+              <ul class="dropdown-menu mt-5 p-3" >
+                <li>
+                  <form class="d-flex" role="search" method="post" action="{% url 'app:search' %}">
+                    {% csrf_token %}
+                    <input class="form-control me-2 py-2 px-3" type="search" name="search_term" placeholder="search here..." aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-dark">{% trans "Blog" %}</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-dark">{% trans "Support" %}</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-dark">{% trans "Products" %}</a>
+            </li>
+            <li class="nav-item">
+              <ul class="nav-item dropdown header-profile">
+                    <form action="{% url 'set_language' %}" method="post">
+                      {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.get_full_path|slice:"3:" }}">
+                            <select class="form-select language_dropdown_list" name="language" onchange="this.form.submit()" id="language">
+                              {% get_current_language as LANGUAGE_CODE %}
+                              {% get_available_languages as LANGUAGES %}
+                              {% get_language_info_list for LANGUAGES as languages %}
+                              {% for language in languages %}
+                                <option style="background:#8fa312; color:#fff" value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                  <!--show the language name and flage here-->
+                                    {{ language.name_local }}
+                                </option>
+                              {% endfor %}
+                            </select>
+                    </form>
+              </ul>
+            </li>
+
+          </ul>
+
+
+        </div>
+      </div>
+    </nav>
+  </header>

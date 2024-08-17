@@ -1,0 +1,23 @@
+
+
+# main .banner .image__section .text__section h1 {
+#     font-size: 5.5rem;
+#     font-weight: bolder;
+#     white-space: nowrap;
+#     overflow: hidden;
+#     border-right: 5px solid #34c9c7;
+#     width: 0;
+#     animation: typing 3s steps(30, end) forwards, blink-caret 0.75s step-end infinite;
+# }
+#
+# /* Typing animation */
+# @keyframes typing {
+#     from { width: 0; }
+#     to { width: 100%; }
+# }
+#
+# /* Blinking cursor animation */
+# @keyframes blink-caret {
+#     from, to { border-color: transparent; }
+#     50% { border-color: #34c9c7; }
+# }

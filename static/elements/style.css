@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    font-family:poppins;
+}
+body{
+    position:relative;
+}
+
+.scroll__to__top {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    justify-content: center;
+    margin: 20px;
+    cursor: pointer;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    background-color: #f1f1f1;
+    opacity: 0; /* Hide the button initially */
+    visibility: hidden; /* Prevent the button from occupying space */
+    position: fixed; /* Keep the button in a fixed position */
+    bottom: 20px; /* Position it at the bottom of the viewport */
+    right: 20px; /* Position it to the right */
+}
+
+.scroll__to__top.show {
+    opacity: 1;
+    visibility: visible;
+}
+.scroll__to__top:hover {
+    outline: 1px solid #222;
+    transform: translateY(-5px) scale(1.1);
+    border-right:3px solid #222;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+.custom_container {
+    width: 100%;
+    padding-right: 5rem;
+    padding-left: 5rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+header .header-profile form select{
+    background:#8fa312;
+    border-radius:10px;
+    color:#fff;
+}
+
+header .navbar{
+    background:black;
+    border-bottom: 3px solid #8fa312;
+    border-image: linear-gradient(to right, #34c9c7, #8fa312) 1;
+}
+header .dropstart {
+    position: relative;
+    display: inline-block;
+}
+header .dropstart .dropdown-menu{
+    width:400px;
+}
+
+main .banner .image__section{
+    /**background: linear-gradient(to right, transparent 0%, rgba(253, 187, 45, 0.5) 100%), url("/static/elements/images/pos-machine.jpg")no-repeat;**/
+    background: url("/static/elements/images/pos-machine-right.jpg")no-repeat;
+    background-size:contain;
+    background-position:right;
+    height:86vh;
+    background-color:#fff;
+}
+main .banner .image__section .text__section{
+     height:86vh;
+     width:50%;
+     padding-left:5rem;
+     display:flex;
+     flex-direction:column;
+     justify-content:center;
+}
+
+main .banner .image__section .text__section .text__section_link a{
+     border-radius: 13px;
+     width:50%;
+     padding:20px;
+     font-weight: bold;
+     border: none;
+     background: #8fa312;
+     transition: background-position 0.4s ease-in, background-color 0.4s ease-in, transform 0.2s ease;
+}
+main .banner .image__section .text__section a:hover{
+    background: linear-gradient(to right, #34c9c7, #8fa312);
+    transform: translateY(-2px);
+    transition: background-position 0.5s ease-out, transform 0.2s ease;
+    animation: colorSlide 0.5s ease forwards;
+}
+
+main .banner .image__section .text__section h1{
+    font-size:5.1rem;
+    font-weight:bolder;
+}
+main .banner .image__section .text__section p{
+    text-align:left;
+}
+
+.search form input{
+    height: 55px;
+    border-radius: 15px;
+}
+.search form button{
+    height: 55px;
+    border-radius: 15px;
+}
+.search form button:hover{
+    background-color:#8fa312;
+}
+.card__ .card{
+    width: 100%;
+    border:1px light silver;
+    border-radius:20px;
+    cursor:pointer;
+    transition:.2s ease;
+}
+.card__ .card img{
+    width: 100%;
+    height:300px;
+    object-fit:cover;
+    border-radius:20px;
+}
+.card__ .card:hover{
+    border-bottom:4px solid #8fa312;
+}
+.card .blog__button{
+    padding:15px;
+    width:100%;
+    color:#fff;
+    border-radius: 30px;
+    margin:10px 0;
+    background: #8fa312;
+}
+.most__recent__post{
+    background: url("/static/elements/images/footer.svg")no-repeat;
+    background-size:cover;
+    background-attachment: fixed;
+    height:65vh;
+    background-color:#fff;
+}
+.pagination__{
+    align-items:center;
+    justify-content:space-between;
+}
+.pagination__ .view__all__post{
+    padding:13px;
+    text-decoration:none;
+    color:#fff;
+    background:#8fa312;
+    border-radius:9px;
+}
+.pagination__ button{
+    height:50px;
+    width:50px;
+    border:none;
+    border-radius:50%;
+    outline:none;
+}
+footer a{
+    text-decoration:none;
+    color:#fff;
+}
+footer a:hover{
+    text-decoration:underline;
+    color:#fff;
+}
+.latest__post{
+    display:flex;
+    align-item:center;
+    gap:15px;
+}
+.latest__post .latest__post__image{
+    height:70px;
+    width: 80px;
+    background:#fff;
+    border-radius: 20px;
+}
+.latest__post .latest__post__image img{
+    height:70px;
+    width: 80px;
+    border-radius:10px;
+    object-fit:cover;
+}
+.socials__ ul{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+footer .socials__ ul li{
+    list-style-type:none;
+}
+footer .newsletter__ form input{
+    padding:13px 30px;
+    border-radius:15px;
+}
+footer .newsletter__ form button{
+    padding:13px 30px;
+    border-radius:15px;
+}
+.main__{
+    height:auto;
+}
+.main__ section{
+    margin-top:50px;
+    margin-bottom: 50px;
+}
+.author__{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    margin-bottom:10px;
+}
+.authors__img {
+    height:60px;
+    width:60px;
+    border-radius:50%;
+    background-color:#222;
+}
+.authors__img img{
+    height:60px;
+    width:60px;
+    border-radius:50%;
+    object-fit:cover;
+}
+.tag-slug{
+    background-image:linear-gradient(to top, transparent 0%, #8fa312 100%), url("/static/elements/images/original-745067e1078b4e550bc2f5f65e7274c3.jpg");
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center;
+    height:150px;
+    width:100%;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+.related__posts{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+.related__posts .related__posts_img{
+    height:70px;
+    width: 70px;
+    background:#fff;
+    border-radius: 10px;
+}
+.related__posts .related__posts_img img{
+    height:70px;
+    width: 70px;
+    border-radius: 10px;
+    object-fit:cover;
+}
+.detail__card{
+    border-radius:20px;
+    padding:20px;
+    height:auto;
+}
+.detail__card img{
+    height:450px;
+    object-fit:cover;
+    border-radius:20px;
+}
+.detail__card img:hover{
+    border-right:7px solid #8fa312;
+    cursor:pointer;
+    transition:.2s;
+}
+.comment__{
+    margin-top:70px;
+    padding:20px;
+    border-radius:10px;
+}
+.comment__ form textarea{
+    height:250px;
+    resize:none;
+    border-radius:10px;
+}
+.comment__ form input{
+    padding:15px;
+    border-radius:10px;
+}
+.comment__ form input::placeholder{
+    font-size:.65rem;
+}
+
+.submit__ button{
+    background:#8fa312;
+    margin:10px;
+    padding:15px;
+    border-radius:10px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+
+
+@media screen and (max-width: 631px) {
+    main .banner .image__section {
+        background: linear-gradient(to right, #222, #000 100%), url("/static/elements/images/pos-machine-right.jpg")no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: auto;
+        background-color: #fff;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    main .banner .image__section {
+        background: linear-gradient(to right, #222, #000 100%), url("/static/elements/images/pos-machine-right.jpg")no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 50vh;
+        background-color: #fff;
+    }
+    main .banner .image__section .text__section {
+        height: 50vh;
+        width: 100%;
+        padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    main .banner .image__section .text__section h1 {
+        font-size: 5.3rem;
+        text-align: center;
+        color: #fff;
+        -webkit-background-clip: text;
+        background-clip: text;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    main .banner .image__section .text__section p {
+        text-align: center;
+        color:#fff;
+    }
+    main .banner .image__section .text__section .text__section_link {
+        text-align:center;
+    }
+    main .banner .image__section .text__section .text__section_link a {
+        margin-top:10px;
+        padding:30px;
+    }
+}
+
+

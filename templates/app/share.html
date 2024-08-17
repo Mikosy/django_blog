@@ -1,0 +1,173 @@
+{% extends "app/base.html" %}
+
+{% load blog_tags %}
+{% load static %}
+{% block content %}
+
+
+
+<main class="container">
+
+    <section class="banner">
+      {% for latest in latest_post %}
+
+      <div class="banner-image"
+      style="background-image:url('{{latest.cover_photo.url}}')"
+      >
+      </div>
+
+      <div class="jumbotron">
+        <div class="badge">
+          <button>{{latest.slug}}</button>
+        </div>
+        <div class="banner-title">
+          <a href="{{latest.get_absolute_url }}">
+            <h1>
+              {{latest.title}}
+            </h1>
+          </a>
+        </div>
+        <div class="banner-author">
+          <div class="author-image"
+          style="background-image:url('{{latest.authors_photo.url}}')"
+          ></div>
+          <div class="authors-name">
+            <p>By: {{latest.author}}</p>
+          </div>
+          <div class="date-published">
+            <p>{{latest.publish}}</p>
+          </div>
+        </div>
+
+
+        {% endfor %}
+      </div>
+    </section>
+
+    <div class="view-all-post-button" style="display:flex; justify-content:end;">
+    <form action="{% url 'app:add_post' %}">
+      <button>Add Post</button>
+    </form>
+    </div>
+
+    <section class="main-text">
+      <h2>Blog Posts</h2>
+      {% if tag %}
+      <h2>Posts tagged with "{{ tag.name }}"</h2>
+      {% endif %}
+      <!-- First column -->
+      <div class="posts" id="post-list">
+        {% for post in posts %}
+        <div class="first-post">
+          <div class="first-post-image"
+          style="background-image:url('{{post.cover_photo.url}}')"
+          ></div>
+          <div class="badge">
+            <button>{{post.slug}}</button>
+          </div>
+          <div class="first-post-title">
+            <a href="{{ post.get_absolute_url }}">
+              <h2>{{ post.title|truncatewords:3 }}</h2>
+              {% comment %} <h2>{{ post.body|markdown|truncatewords_html:30 }}</h2> {% endcomment %}
+            </a>
+          </div>
+          <div class="first-post-author">
+            <div class="first-post-author-image"
+            style="background-image:url('{{post.authors_photo.url}}')"
+            ></div>
+            <div class="first-post-authors-name">
+              <span> {{ post.publish }}</span> |
+              <span> {{ post.author }}</span>
+            </div>
+
+            <div class="first-post-date-published">
+            </div>
+          </div>
+          {% comment %} <small>Tags: {{ post.tags.all|join:", " }}</small> {% endcomment %}
+          <div class="tags">
+            <small>Tags:
+              {% for tag in post.tags.all %}
+              <a href="{% url "app:post_list_by_tag" tag.slug %}">
+                {{tag.name}}
+              </a>
+              {% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </small>
+          </div>
+
+        </div>
+        {% endfor %}
+
+      </div>
+
+
+
+      <div class="paginator">
+        {% include "app/paginator.html" with page=posts %}
+      </div>
+
+      <div class="view-all-post-button">
+
+
+        <form action="{% url 'app:view_all_posts' %}">
+          <button>View All Post</button>
+        </form>
+
+      </div>
+
+      <h3>Latest posts</h3>
+      {% show_latest_posts 1 %}
+
+      <div class="newsletter">
+        <form action="" method="post">
+          {% csrf_token %}
+          <fieldset>
+            <legend>Subscribe to newsletter</legend>
+            <div>
+              <input type="email" name="email" placeholder="Your email...">
+            </div>
+            <div>
+              <button type="submit">Subscribe</button>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+
+      <br>
+
+      {% comment %} <h3>Most commented posts</h3>
+      {% get_most_commented_posts as most_commented_posts %}
+      {% if most_commented_posts %}
+      <ol>
+        {% for post in most_commented_posts %}
+        <li>
+          <a href="{{ post.get_absolute_url }}">{{ post.title|upper }}</a>
+        </li>
+        {% endfor %}
+      </ol>
+      {% else %}
+
+      {% endif %} {% endcomment %}
+
+
+      <br>
+
+      {% comment %} <p>
+        <a href="{% url "app:post_feed" %}">
+        Subscribe to my RSS feed
+        </a>
+        </p>
+      <br> {% endcomment %}
+      <div> <b> {% total_posts %} </b> posts published so far.</div>
+
+    </section>
+  </main>
+
+
+
+
+
+
+{% endblock content %}
+

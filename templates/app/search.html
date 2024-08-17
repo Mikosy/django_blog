@@ -1,86 +1,54 @@
-{% extends "app/base.html" %}
+{% extends 'app/elements/admin.html' %}
+{% load static %}
+{% load blog_tags %}
+
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
 
 {% block content %}
+<main>
 
 
-
-<main class="container">
-    
-
-    <section class="main-text">
-               
-        <div class="logo">
-        <h3 style="font-size:1.5rem;">Search Result for <span>{{search_term|upper}}</span></h3>
-        </div>
-
-      <p></p>
-      <!-- First column -->
-      <div class="posts"  id="search-results">
-        {% for post in posts %}
-        <div class="first-post">
-          <div class="first-post-image"
-          style="background-image:url('{{post.cover_photo.url}}')"
-          ></div>
-          <div class="badge">
-            <button>{{post.slug}}</button>
+    <section class="py-4 my-4">
+        <div class="container card__">
+          <div class="logo my-2">
+            <h3 class="fw-bold fs-2 ">Search Result for <span style="color:#8fa312">{{search_term|upper}}</span></h3>
           </div>
-          <div class="first-post-title">
-            <a href="{{ post.get_absolute_url }}">
-              <h2>{{ post.title|truncatewords:3  }}</h2>
-            </a>
-          </div>
-          <div class="first-post-author">
-            <div class="first-post-author-image"
-            style="background-image:url('{{post.authors_photo.url}}')"
-            ></div>
-            <div class="first-post-authors-name">
-              <span> {{ post.publish }}</span> |
-              <span> {{ post.author }}</span>
+            <div class="row pt-2">
+              {% for post in posts %}
+                <div class="col-xl-4 col-md-12 col-sm-12 mb-4">
+                    <div class="card shadow-md">
+                      <img src="{{post.cover_photo.url}}" class="card-img-top" alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title fs-3 fw-bold">{{ post.title|slice:":24"|safe }}</h5>
+                        <p class="card-text">{{ post.body|slice:":70"|safe }}...</p>
+                        <a href="{{ post.get_absolute_url }}" class="btn blog__button">Read more...</a>
+                      </div>
+                    </div>
+                </div>
+
+                {% endfor %}
             </div>
-            <div class="first-post-date-published">
-            </div>
-          </div>
 
-          {% comment %} <small>Tags: {{ post.tags.all|join:", " }}</small> {% endcomment %}
-          <div class="tags">
-            <small>Tags:
-              {% for tag in post.tags.all %}
-              <a href="{% url "app:post_list_by_tag" tag.slug %}">
-                {{tag.name}}
-              </a>
-              {% if not forloop.last %}, {% endif %}
-              {% endfor %}
-            </small>
-          </div>
 
         </div>
-        {% endfor %}
-         
-      </div>
-
-      {% comment %} <div class="paginator">
-        {% include "app/paginator.html" with page=posts %}
-      </div> {% endcomment %}
-     
-      <div class="view-all-post-button">
-       
-
-        {% if user.is_authenticated %}
-        <form action="{% url 'app:view_all_posts' %}">
-          <button>View All Post</button>
-        </form>
-        {% else %}
-        
-        {% endif %}
-      </div>
-
-
     </section>
-  </main>
 
 
 
+    <section class="scroll__to__top shadow-lg" id="scrollToTop">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+            </svg>
+        </div>
+    </section>
+
+</main>
+{% endblock %}
 
 
-
-{% endblock content %}

@@ -1,0 +1,32 @@
+{% load blog_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+      {% block title %}Grocsale Blog{% endblock title %}
+    </title>
+    <link rel="icon" type="image/x-icon" href="{% static './assets/images/favicon_2.png' %} ">
+    <link rel="stylesheet" href="{% static './elements/bs/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static './elements/style.css' %}"/>
+     {% load static %}
+    {% block extra_head %}
+    {{ form.media }}
+    {% endblock %}
+</head>
+<body>
+  {% include "app/elements/header.html" %}
+
+  {% block content %}
+
+
+  {% endblock content %}
+
+  {% include "app/elements/footer.html" %}
+
+
+    <script src="{% static './elements/bs/bootstrap.bundle.js' %}"></script>
+    <script src="{% static './elements/bs/script.js' %}"></script>
+</body>
+</html>

@@ -9,8 +9,10 @@
   </head>
 
   <body id="change-background">
-    {% include "app/include/navbar.html" %} 
-    
+
+    {% block navbar %}
+    {% include "app/include/navbar.html" %}
+    {% endblock %}
     {% if messages %} 
     {% for message in messages %}
     <section class="message-section">
@@ -87,8 +89,10 @@
         {% endif %}
       </div>
     </section>
-    {% endfor %} {% endif %} {% block content %} {% endblock content %} 
+    {% endfor %} {% endif %} {% block content %} {% endblock content %}
+    {% block footer %}
     {% include "app/include/footer.html" %}
+    {% endblock %}
 
     <script src="{% static './assets/js/script.js' %}"></script>
 

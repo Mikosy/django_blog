@@ -12,11 +12,11 @@
       body.style.color = "#fff";
   
       for (var i = 0; i < anchors.length; i++) {
-        anchors[i].style.color = "#ff4828";
+        anchors[i].style.color = "#8fa312";
       }
       for (var i = 0; i < buttons.length; i++) {
         buttons[i].style.color = "#fff";
-        buttons[i].style.backgroundColor = "#ff4828";
+        buttons[i].style.backgroundColor = "#8fa312";
       }
 
     } else {
