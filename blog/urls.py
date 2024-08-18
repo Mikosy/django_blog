@@ -15,7 +15,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-
 from django.contrib import admin
 # from django.contrib.auth import views as auth_views
 from django.urls import path, include
@@ -30,22 +29,20 @@ from django.conf.urls.i18n import set_language
 from django.contrib.sitemaps.views import sitemap
 from app.sitemaps import PostSitemap
 
-
-
-
 sitemaps = {
     'posts': PostSitemap,
 }
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # ck_editor 5 url
+    path("ckeditor5/", include('django_ckeditor_5.urls')),
 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
     # Sitempas url
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
 )

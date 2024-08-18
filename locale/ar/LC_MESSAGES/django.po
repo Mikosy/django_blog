@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-17 09:13+0100\n"
+"POT-Creation-Date: 2024-08-17 16:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,48 +19,24 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: .\app\models.py:19
-msgid "Draft"
-msgstr ""
-
 #: .\app\models.py:20
-msgid "Published"
-msgstr ""
-
-#: .\app\models.py:22
 msgid "Title"
 msgstr ""
 
-#: .\app\models.py:28 .\app\models.py:55
+#: .\app\models.py:21
 msgid "Body"
 msgstr ""
 
-#: .\app\models.py:29
+#: .\app\models.py:22
 msgid "Blockquote"
 msgstr ""
 
-#: .\app\models.py:34
+#: .\app\models.py:38
 msgid "Status"
 msgstr ""
 
-#: .\app\models.py:40
+#: .\app\models.py:44
 msgid "Posts"
-msgstr ""
-
-#: .\app\models.py:53
-msgid "Name"
-msgstr ""
-
-#: .\app\models.py:54 .\app\models.py:71
-msgid "Email"
-msgstr ""
-
-#: .\app\models.py:60
-msgid "Active"
-msgstr ""
-
-#: .\app\models.py:80
-msgid "Invalid email format"
 msgstr ""
 
 #: .\env\Lib\site-packages\ckeditor_uploader\forms.py:6
@@ -1321,6 +1297,42 @@ msgstr ""
 msgid "Connect, get help, or contribute"
 msgstr ""
 
+#: .\templates\app\detail.html:11
+msgid "Post Details"
+msgstr ""
+
+#: .\templates\app\detail.html:14
+msgid "A"
+msgstr ""
+
+#: .\templates\app\detail.html:14
+msgid "minute(s) read"
+msgstr ""
+
+#: .\templates\app\detail.html:44
+msgid "Related Posts"
+msgstr ""
+
+#: .\templates\app\elements\footer.html:14
+msgid "Latest Post"
+msgstr ""
+
+#: .\templates\app\elements\footer.html:29
+msgid "Socials & Newsletter"
+msgstr ""
+
+#: .\templates\app\elements\header.html:30
+msgid "Blog"
+msgstr ""
+
+#: .\templates\app\elements\header.html:33
+msgid "Support"
+msgstr ""
+
+#: .\templates\app\elements\header.html:36
+msgid "Products"
+msgstr ""
+
 #: .\templates\app\index.html:16
 msgid "Your online Grocery Store!"
 msgstr "متجرك البقالة على الإنترنت!"
@@ -1328,3 +1340,7 @@ msgstr "متجرك البقالة على الإنترنت!"
 #: .\templates\app\index.html:17
 msgid "where we manage your inventory for you..."
 msgstr "حيث ندير مخزونك من أجلك..."
+
+#: .\templates\app\index.html:19
+msgid "Explore Blog"
+msgstr ""

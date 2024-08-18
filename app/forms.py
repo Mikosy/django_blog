@@ -1,25 +1,25 @@
 from django import forms
+from taggit.forms import TagWidget
 from .models import *
-from ckeditor.widgets import CKEditorWidget
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'body')
+        fields = ['name', 'email', 'body', 'comment_photo']
 
 
 class PostForm(forms.ModelForm):
-    body = forms.CharField(widget=CKEditorWidget())
-
+    tags = forms.CharField(widget=TagWidget(), required=False)
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ['title', 'slug', 'author', 'tags', 'authors_photo', 'cover_photo', 'body', 'blockquote', 'status', 'pinned_post', 'publish']
+
 
 class NewsletterForm(forms.ModelForm):
-
     class Meta:
         model = Newsletter
-        fields = ('email',)
+        fields = ['email']
 
 # class SearchForm(forms.Form):
 #     search_title = forms.CharField(label='Seach by title', max_length=100)

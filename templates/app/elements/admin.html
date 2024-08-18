@@ -9,7 +9,11 @@
     </title>
     <link rel="icon" type="image/x-icon" href="{% static './assets/images/favicon_2.png' %} ">
     <link rel="stylesheet" href="{% static './elements/bs/bootstrap.css' %}"/>
+    {% if '/ar/' in request.get_full_path %}
+    <link rel="stylesheet" href="{% static './elements/style-left.css' %}"/>
+    {% else %}
     <link rel="stylesheet" href="{% static './elements/style.css' %}"/>
+    {% endif %}
      {% load static %}
     {% block extra_head %}
     {{ form.media }}

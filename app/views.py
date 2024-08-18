@@ -7,6 +7,7 @@ from django.contrib.auth import decorators
 from taggit.models import Tag
 from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
+import traceback
 # forms
 from .forms import *
 
@@ -193,39 +194,60 @@ def add_post(request):
 
 
 def edit_post(request, post_id):
-    url = request.META.get('HTTP_REFERER')
-    posts = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
+    try:
+        # Get the referring URL if needed
+        url = request.META.get('HTTP_REFERER')
+        posts = get_object_or_404(Post, id=post_id, status=Post.Status.PUBLISHED)
 
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES, instance=posts)
+        if request.method == 'POST':
+            form = PostForm(request.POST, request.FILES, instance=posts)
 
-        if form.is_valid():
-            edited_post = form.save(commit=False)
-            edited_post.user = request.user
-            edited_post.save()
-            messages.success(request, "You've edited a post")
-            return redirect(url)
-    else:
-        form = PostForm(instance=posts)
+            if form.is_valid():
+                # Save the form but don't commit to the database just yet
+                edited_post = form.save(commit=False)
+                tags = form.cleaned_data.get('tags')
+                if tags:
+                    tag_list = [tag.strip() for tag in tags.split(',')]
+                    edited_post.tags.set(*tag_list)
+                print('Form data:', edited_post)
 
-    data = {
-        'posts': posts,
-        'form': form,
-    }
+                if not request.FILES.get('authors_photo'):
+                    # retaining old authors photo
+                    edited_post.authors_photo = posts.authors_photo
 
-    return render(request, 'app/edit_post.html', data)
+                if not request.FILES.get('cover_photo'):
+                    # reataining old image
+                    edited_post.cover_photo = posts.cover_photo
+
+                # Saving to the db
+                edited_post.save()
+                messages.success(request, "You've edited the post successfully.")
+                return redirect(edited_post.get_absolute_url())
+            else:
+                print('Form errors:', form.errors)
+                messages.error(request, "There was an issue with updating the post.")
+        else:
+            # If not POST, render the form pre-filled with the post data
+            form = PostForm(instance=posts)
+        data = {
+            'posts': posts,
+            'form': form,
+        }
+        return render(request, 'app/edit_post.html', data)
+    except Exception as e:
+        # Print and log the full traceback of the error
+        print('An error occurred:', e)
+        print(traceback.format_exc())
+        messages.error(request, "An unexpected error occurred.")
+        return redirect(url)
 
 
 def delete_post(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-
     if request.method == 'POST':
         post.delete()
-        messages.success(request, "You've deleted a post")
-
+        messages.success(request, f"You've deleted a post{post.title}")
         return redirect('app:home')
-
-    return render(request, 'app/delete_confirmation.html', {'post': post})
 
 
 # def post_share(request, post_id):

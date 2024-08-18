@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.urls import reverse
-from ckeditor_uploader.fields import RichTextUploadingField
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class PublishedManager(models.Manager):
@@ -19,17 +19,18 @@ class Post(models.Model):
         DRAFT = 'DF', _('Draft')
         PUBLISHED = 'PB', _('Published')
 
-    title = models.CharField(max_length=255, verbose_name=_("Title"))
-    slug = models.SlugField(max_length=250, unique_for_date='publish')
+    title = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("Title"))
+    slug = models.SlugField(max_length=250, blank=True, null=True, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
-    tags = TaggableManager()
-    authors_photo = models.ImageField(upload_to='media', blank=True)
-    cover_photo = models.ImageField(upload_to='media', blank=True)
-    body = RichTextUploadingField(verbose_name=_("Body"))
-    blockquote = models.TextField(max_length=200, blank=True, verbose_name=_("Blockquote"))
+    tags = TaggableManager(blank=True)
+    authors_photo = models.ImageField(upload_to='media', blank=True, null=True)
+    cover_photo = models.ImageField(upload_to='media', blank=True, null=True)
+    # body = RichTextUploadingField(blank=True, null=True, verbose_name=_("Body"))
+    body = CKEditor5Field(blank=True, null=True, config_name='extends')
+    blockquote = models.TextField(max_length=200, blank=True, null=True, verbose_name=_("Blockquote"))
     publish = models.DateTimeField(default=timezone.now)
-    created = models.DateField(auto_now_add=True)
-    update = models.DateTimeField(auto_now=True)
+    created = models.DateField(auto_now_add=True, blank=True, null=True)
+    update = models.DateTimeField(auto_now=True, blank=True, null=True)
     pinned_post = models.BooleanField(default=False)
     status = models.CharField(max_length=2, choices=Status.choices, default=Status.DRAFT, verbose_name=_("Status"))
 
@@ -53,10 +54,9 @@ class Comment(models.Model):
     name = models.CharField(max_length=80, verbose_name=_("Name"))
     email = models.EmailField(verbose_name=_("Email"))
     body = models.TextField(verbose_name=_("Body"))
-    comment_photo = models.ImageField(upload_to='media', blank=True)
-
-    created = models.DateTimeField(auto_now_add=True)
-    update = models.DateTimeField(auto_now=True)
+    comment_photo = models.ImageField(upload_to='media', blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    update = models.DateTimeField(auto_now=True, blank=True, null=True)
     active = models.BooleanField(default=True, verbose_name=_("Active"))
 
     class Meta:

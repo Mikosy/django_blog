@@ -1,35 +1,148 @@
-{% extends "app/base.html" %}
-
-{% load blog_tags %}
+{% extends 'app/elements/admin.html' %}
 {% load static %}
+{% load blog_tags %}
+{% load i18n %}
+
 
 {% block content %}
 
-
 <!-- edit_post.html -->
 
-<main class="container">
-
-  <div class="back-icon">
-    <a href="{{ posts.get_absolute_url }}" style="display:flex; align-items:center; gap:5px; font-size:1rem; margin:20px 0; font-weight:400;">
+<main class="container my-5">
+  <div class="mb-5">
+    <a href="{{ posts.get_absolute_url }}" class="bg-dark text-light p-2 rounded-2">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
       </svg>
       Back </a>
   </div>
 
-
-  <form method="post" action="{{post.get_absolute_url}}" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" action="{% url 'app:edit_post' post_id=posts.id %}" class="add-post-form__">
     {% csrf_token %}
-    {{ form.media }}
-    {{ form.as_p }}
+    <div class="card shadow-md">
+        <div class="row">
+            <div class="col-xl-6 col-md-12">
+                <!-- Title Field -->
+                <div class="mb-3">
+                    <label for="id_title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="id_title" name="title" value="{{ form.title.value|default:'' }}">
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <!-- Slug Field -->
+                <div class="mb-3">
+                    <label for="id_slug" class="form-label">Slug</label>
+                    <input type="text" class="form-control" id="id_slug" name="slug" value="{{ form.slug.value|default:'' }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-md-12">
+                <!-- Author Field -->
+                <div class="mb-3">
+                    <label for="id_author" class="form-label">Author</label>
+                    <select class="form-select" id="id_author" name="author">
+                        {% for author in form.author.field.queryset %}
+                            <option value="{{ author.id }}" {% if author.id == form.author.value %}selected{% endif %}>
+                                {{ author.username }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <!-- Status Field -->
+                <div class="mb-3">
+                    <label for="id_status" class="form-label">Status</label>
+                    <select class="form-select" id="id_status" name="status">
+                        <option value="DF" {% if form.status.value == 'DF' %}selected{% endif %}>Draft</option>
+                        <option value="PB" {% if form.status.value == 'PB' %}selected{% endif %}>Published</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-md-12">
+                <!-- Authors Photo Field -->
+                <div class="mb-3">
+                    <label for="id_authors_photo" class="form-label">Authors Photo</label>
+                    {% if posts.authors_photo %}
+                        <img src="{{ posts.authors_photo.url }}" alt="Authors Photo" style="max-width: 100px; max-height: 100px;">
+                    {% endif %}
+                    <input type="file" class="form-control" id="id_authors_photo" name="authors_photo" accept=".png, .jpg, .jpeg">
+                </div>
 
-    <button type="submit">Update Post</button>
-  </form>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <!-- Cover Photo Field -->
+                <div class="mb-3">
+                    <label for="id_cover_photo" class="form-label">Cover Photo</label>
+                    {% if posts.cover_photo %}
+                        <img src="{{ posts.cover_photo.url }}" alt="Cover Photo" style="max-width: 100px; max-height: 100px;">
+                    {% endif %}
+                    <input type="file" class="form-control" id="id_cover_photo" name="cover_photo" accept=".png, .jpg, .jpeg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-md-12">
+                <!-- Body Field (Rich Text) -->
+                <div class="mb-3">
+                    <label for="postBody" class="form-label">Content</label>
+                    <textarea class="form-control" id="postBody" name="body">{{ form.body.value|default:'' }}</textarea>
+                </div>
+
+                <script>
+                    ClassicEditor
+                        .create(document.querySelector('#postBody'))
+                        .catch(error => {
+                            console.error(error);
+                        });
+                </script>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-md-12">
+                <!-- Tags Field -->
+                <div class="mb-3">
+                    <label for="id_tags" class="form-label">Tags</label>
+                    <input type="text" class="form-control" id="id_tags" name="tags" value="{{ form.tags.value|default:'' }}">
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <!-- Blockquote Field -->
+                <div class="mb-3">
+                    <label for="id_blockquote" class="form-label">Blockquote</label>
+                    <input type="text" class="form-control" id="id_blockquote" name="blockquote" value="{{ form.blockquote.value|default:'' }}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-md-12">
+                <!-- Publish Date Field -->
+                <div class="mb-3">
+                    <label for="id_publish" class="form-label">Publish Date</label>
+                    <input type="datetime-local" class="form-control" id="id_publish" name="publish" value="{{ form.publish.value|default:'' }}">
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-12">
+                <!-- Pinned Post Field -->
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="id_pinned_post" name="pinned_post" {% if form.pinned_post.value %}checked{% endif %}>
+                    <label class="form-check-label pt-2 ms-2" for="id_pinned_post">Pinned Post</label>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn publish__btn my-3">Save Changes</button>
+    </div>
+</form>
+
   
 </main>
 
 {% endblock content %}
-
-
 

@@ -1,31 +1,138 @@
+
 {% extends 'app/elements/admin.html' %}
 {% load static %}
 {% load blog_tags %}
 {% load i18n %}
 
-
 {% block content %}
-
-  <main class="container my-5">
-    <h2 class="fw-bold fs-1">{{posts.title}} details</h2>
-    <div class="container d-flex">
-      <section class="py-4 my-4">
-        <div class="card__">
-            <div class="row pt-2"  id="card__">
-                <div class="shadow-md">
-                    <div class="card shadow-md">
-                      <img src="{% static 'elements/images/pos-machine-right.png' %}" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title fs-3 fw-bold">{{ posts.title|slice:":24"|safe }}</h5>
-                        <p class="card-text">{{ posts.body|safe }}</p>
-                      </div>
+<main class="container main__">
+    <div class="text-center">{% include "app/elements/messages.html" %}</div>
+    <section class="row">
+        <h2 class="fw-bold mt-2 pb-4">{% trans 'Post Details' %} </h2>
+        <div class="col-xl-4">
+            <div>
+                <p>{% trans 'A' %} {{ reading_time }} {% trans 'minute(s) read' %}.</p>
+                <div class="author__">
+                    <div class="authors__img">
+                        <img src="{{posts.authors_photo.url}}" alt="authors__img">
+                    </div>
+                    <div class="authors__name">
+                        <h5 class="mb-0 pt-3">{{ posts.author }}</h5>
+                        <p class="mt-0 pt-0">{{ posts.publish }}</p>
                     </div>
                 </div>
+
+            </div>
+
+            <div class="tag-slug p-3">
+<!--                <div class="tag__">-->
+<!--                    <span class="fw-bold text-light">Tag:</span> <a href="" class="btn btn-sm btn-outline-light ">{{ posts.tag }}</a>-->
+<!--                </div>-->
+                <div class="slug__ pt-2">
+                    <span class="fw-bold text-light">Slug: </span><a href="" class="btn btn-sm btn-outline-light ">{{ posts.slug }}</a>
+                </div>
+                {% if user.is_authenticated %}
+
+                <div class="edit-post d-flex gap-2 pt-4">
+                  <a href="{% url 'app:edit_post' post_id=posts.id %}" class="btn btn-md bg-primary text-light fw-bold">Edit Post</a>
+                  <a href="#-{{posts.pk}}" data-bs-toggle="modal" data-bs-target="#exampleModal-{{posts.pk}}" class="btn btn-md bg-danger fw-bold text-light">Delete Post</a>
+                </div>
+
+                {% else %} {% endif %}
+            </div>
+
+            <h4 class="my-3 mt-5">{% trans "Related Posts" %}</h4>
+            {% if similar_posts %}
+            {% for post in similar_posts %}
+            <div class="related__posts">
+                <div class="related__posts_img">
+                    <img src="{{post.cover_photo.url}}" alt="related__posts">
+                </div>
+                <div class="related__posts_title">
+                    <h4>
+                        <a href="{{ post.get_absolute_url }}" class="text-dark">{{ post.title|slice:":24"|safe }}</a>
+                    </h4>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>No related post</p>
+            {% endif %}
+
+
+        </div>
+        <div class="col-xl-8">
+            <div class="card detail__card" style="">
+              <img src="{{posts.cover_photo.url}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                  <h2 class="card-title pb-3 fw-bold">{{ posts.title }}</h2>
+                <p class="card-text">{{ posts.body|safe }}</p>
+              </div>
+            </div>
+
+            <div class="card shadow-md comment__">
+<!--                <h4 class="pb-2 fw-bold">Leave a comment</h4>-->
+                <form>
+                    <div class="row">
+                        <div class="col-xl-6 col-md-6 col-sm-6">
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">email</label>
+                              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="email@email.com">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-md-6 col-sm-6">
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">name</label>
+                              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exampleFormControlTextarea1" class="form-label">comment</label>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+
+                    <div class="submit__">
+                        <button class="btn btn-md text-light fw-bold" type="submit">Add comment</button>
+                    </div>
+                </form>
             </div>
         </div>
-      </section>
 
+
+    </section>
+
+
+    <section class="scroll__to__top shadow-lg" id="scrollToTop">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+            </svg>
+        </div>
+    </section>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal-{{posts.pk}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content modal-content__">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">{{ posts.title|slice:":35"|safe }}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <p>{% trans 'You are about to delete this post' %} <span class="fw-bold">{{ posts.title|safe }}</span>. {% trans 'This action is permanent and cannot be undone. Are you sure you want to proceed?' %}</p>
+          </div>
+          <div class="modal-footer">
+              <form method="post" action="{% url 'app:delete_post' post_id=posts.id %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn modal-content-btn__">Delete</button>
+              </form>
+          </div>
+        </div>
+      </div>
     </div>
-  </main>
 
-{% endblock content %}
+</main>
+{% endblock %}

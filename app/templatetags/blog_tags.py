@@ -1,6 +1,5 @@
 from django import template
 from . .models import *
-
 from django.db.models import Count
 
 from django.utils.html import format_html
@@ -9,6 +8,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 import markdown
 
+from django.template.defaultfilters import stringfilter
 
 register = template.Library()
 
@@ -44,3 +44,7 @@ def truncate_words(value, arg):
         return value
     except Exception as e:
         return value
+
+@register.filter
+def convert_markdown(value):
+    return markdown.markdown(value)

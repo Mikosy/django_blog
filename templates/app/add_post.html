@@ -9,66 +9,84 @@
 <!-- edit_post.html -->
 
 <main class="container my-5">
-<!--<form method="POST" enctype="multipart/form-data">-->
-<!--    {% csrf_token %}-->
-<!--    {{ form.media}}-->
-<!--    {{ form.as_p }}-->
-<!--    <button type="submit">Publish</button>-->
-<!--</form>-->
+    <div class="text-center">{% include "app/elements/messages.html" %}</div>
+    <!--<form method="POST" enctype="multipart/form-data">-->
+    <!--    {% csrf_token %}-->
+    <!--&lt;!&ndash;    {{ form.media}}&ndash;&gt;-->
+    <!--    {{ form.as_p }}-->
+    <!--    <button type="submit">Publish</button>-->
+    <!--</form>-->
+    <h1 class="my-3 fw-bold">{% trans 'Add Post' %}</h1>
+    <form method="POST" enctype="multipart/form-data" class="add-post-form__">
+        {% csrf_token %}
+        <div class="card shadow-md">
+            <div class="row mb-3">
+                <div class="mb-3 col-xl-6 col-md-6 col-sm-12">
+                    <label for="exampleTitle" class="form-label">Title</label>
+                    <input type="text" name="title" class="form-control" id="exampleTitle" aria-describedby="">
+                </div>
+                <div class="mb-3 col-xl-6 col-md-6 col-sm-12">
+                    <label for="exampleSlug" class="form-label">Slug</label>
+                    <input type="text" name="slug" class="form-control" id="exampleSlug" aria-describedby="">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-xl-6 col-md-6 col-sm-12">
+                    <select class="form-select form-select mb-3" name="status" aria-label="">
+                        <option value="Draft" selected>Draft</option>
+                        <option value="Published">Published</option>
+                    </select>
+                </div>
+                <div class="col-xl-6 col-md-6 col-sm-12">
+                    <select class="form-select form-select mb-3" name="author" aria-label="Large select example">
+                        {% for author_post in authors %}
+                        <option value="{{author_post.author}}">{{author_post.author}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3 col-xl-6 col-md-6 col-sm-12">
+                    <label for="authorsUpload" class="form-label">Authors Photo</label>
+                    <input class="form-control" name="authors_photo" type="file" id="authorsUpload">
+                </div>
+                <div class="mb-3 col-xl-6 col-md-6 col-sm-12">
+                    <label for="coverPhoto" class="form-label">Cover Photo</label>
+                    <input class="form-control" name="cover_photo" type="file" id="coverPhoto" >
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-floating col-xl-12 col-sm-12 col-md-12">
+                    <textarea class="form-control" name="body" placeholder="your post..." id="floatingTextarea"></textarea>
+                    <label for="floatingTextarea" class="ms-3">Content</label>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3 col-xl-6 col-md-6 col-sm-12">
+                    <label for="exampleBlockquote" class="form-label">Blockquote</label>
+                    <input type="text" name="blockquote" class="form-control" id="exampleBlockquote" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3 col-xl-6 col-md-6 col-sm-12">
+                    <label for="exampleDate" class="form-label">Date</label>
+                    <input type="date" name="published" class="form-control" id="exampleDate" aria-describedby="emailHelp">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="mb-3 col-xl-6 col-md-6 col-sm-12">
+                    <label for="exampleTag" class="form-label">Tag</label>
+                    <input type="text" name="tags" class="form-control" id="exampleTag" aria-describedby="emailHelp">
+                </div>
+                <div class="col-xl-6 col-md-6 col-sm-12 my-auto">
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" name="pi nned_post" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label pt-2 ms-2" for="exampleCheck1">Pinned post</label>
+                    </div>
+                </div>
+            </div>
 
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="card shadow-lg rounded-2 p-3">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Title</label>
-        <input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Slug</label>
-        <input type="text" name="slug" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-      <select class="form-select form-select-lg mb-3" name="author" aria-label="Large select example">
-          {% for author_post in authors %}
-            <option value="{{author_post.author}}">{{author_post.author}}</option>
-          {% endfor %}
-      </select>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Tag</label>
-        <input type="text" name="tags" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      </div>
-         <div class="mb-3">
-          <label for="formFileMultiple" class="form-label">Authors Photo</label>
-          <input class="form-control" name="authors_photo" type="file" id="formFileMultiple" multiple>
+            <button type="submit" class="btn my-3 publish__btn">Publish</button>
         </div>
-        <div class="mb-3">
-          <label for="formFileMultiple" class="form-label">Cover Photo</label>
-          <input class="form-control" name="cover_photo" type="file" id="formFileMultiple" multiple>
-        </div>
-        <div class="form-floating">
-          <textarea class="form-control" name="body" placeholder="your post..." id="floatingTextarea"></textarea>
-          <label for="floatingTextarea">Content</label>
-        </div>
-        <div class="form-floating my-2">
-          <textarea class="form-control" placeholder="your blockquote" id="floatingTextarea"></textarea>
-          <label for="floatingTextarea">Blockquote</label>
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Date</label>
-            <input type="date" name="published" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
-        <select class="form-select form-select-lg mb-3" name="status" aria-label="Large select example">
-          <option value="Draft" selected>Draft</option>
-          <option value="Published">Published</option>
-        </select>
-
-      <div class="mb-3 form-check">
-        <input type="checkbox" name="pinned_post" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Pinned post</label>
-      </div>
-      <button type="submit" class="btn btn-lg my-3 btn-success p-3">Publish</button>
-    </div>
-</form>
-  
+    </form>
 </main>
 
 {% endblock content %}

@@ -1,2 +1,3 @@
 
 # fields = ('title', 'slug', 'author', 'tags', 'authors_photo', 'cover_photo', 'post_photo_one', 'post_photo_two', 'post_photo_three', 'body', 'blockquote', 'pinned_post', 'status')
+
